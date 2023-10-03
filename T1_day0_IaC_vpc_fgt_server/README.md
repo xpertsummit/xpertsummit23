@@ -17,14 +17,16 @@ http://labserver.xpertsummit-es.com
 * T3_dayN_fortiweb: creación de una nueva aplicación y protección avanzada API
 * T4_dayN_fortigslb: añadiremos la aplicación a un servicio de balanceo global DNS
 
-## Resumen puesta en marcha
+## Lab T1. Resumen puesta en marcha
 
 En este laboratorio se desplegarán los siguientes recursos:
-- Para el rango CIDR se usará el proporcionado a cada participante.
-- 1 VPC con 4 subnets: Management, Public, Private y Bastion
-- Los Security Groups (SG) que se asociarán a cada una de las interfaces.
+- Los detalles parapoder desplegar se proporcionan para cada participante y son diferentes.
+- En AWS se desplegará 1 VPC con 4 subnets: Management, Public, Private y Bastion
+- Los Security Groups (SG) que se asociarán a cada una de las interfaces ya están definidos en el código.
 - 1 x fortigate con los interfaces necesarios en cada subnet, sus SG asociados y la configuración SDWAN necesaria.
 - 1 x servidor docker con una aplicación API de testeo.
+- El código Terraform ya se proporicona en el laboratorio y se realizará mediante la llamada a tres modulos: uno crea la VPC, otro despliega el Fortigate y otro el servidor.   
+- No es necesario tener instalado ninguna aplicación en el PC desde el que se realizará el laboratorio, más allá de un navegador web. 
 
 ## Diagrama del laboratorio
 
@@ -35,17 +37,17 @@ En este laboratorio se desplegarán los siguientes recursos:
 ## Pasos a seguir:
 
 ## 1. Conexión al entorno de desarrollo Cloud9
-Desde el [portal formación](http://xpertsummit22.jvigueras-fortinet-site.com) podeis encontrar el acceso a vuestro entorno Cloud9.
+Desde el [portal formación](http://xs23.xpertsummit-es.com) podeis encontrar el acceso a vuestro entorno Cloud9.
 
 1.1 Obtener los datos de cada usuario:
 - Desde el portal de formación introducir el email de registro al curso.
 - Apareceran los datos asociados para usar durante el laboratorio.
-- Acceder a la URL del portal Cloud9 que aparece en vuestros datos con el: `user` y `password`.
+- Acceder a la URL del portal Cloud9 que aparece con los datos de: `account_id`,  `user` y `password`. 
 
 ![Student data](./images/image1-1-1.png)
 
 - Ejemplo:
-  - URL acceso: https://region.console.../cloud9/ide/c93257xxxxxxxxx
+  - URL acceso: https://eu-central-1.console.aws.amazon.com/cloud9/ide/d77xxxxx
   - accountid: xxxxxx
   - User: xs22-eu-west-1-user-1
   - Password: xxxxx
@@ -59,7 +61,7 @@ Desde el [portal formación](http://xpertsummit22.jvigueras-fortinet-site.com) p
 - Abrir una nueva consola terminal o usar la actual
 - Desde el terminal ejecutar el siguiente comando: 
 ```
-git clone https://github.com/jmvigueras/xpertsummit22.git
+git clone https://github.com/xpertsummit/xpertsummit23.git
 ```
 - ... o desde el botón de Git que se puede encontrar e introduciendo la URL anterior
 
@@ -71,43 +73,38 @@ git clone https://github.com/jmvigueras/xpertsummit22.git
 ## 3.  Acceder a la carpeta T1_day0_deploy-vpc
 - Desde el terminal 
 ```
-cd xpertsummit22/T1_day0_deploy-vpc
+cd xpertsummit23/T1_day0_IaC_vpc_fgt_server/terraform
 ```
 - Desde el navegador de ficheros de la parte izquierda desdplegando la carpeta corrspondiente al T1
 
 ![Open text editor](./images/image3-1.png)
 
 
-## 4. **IMPORTANTE** Actualizar las variables necesarias para este primer laboratorio
-- Esta será la única vez que será necesario actualizar estas variables.
-- Se debe actualizar de forma con los datos de cada participante para poder completar el lab
-- Los datos se deben de obtinen desde el [portal formación](http://xpertsummit22.jvigueras-fortinet-site.com) 
-- Hacer doble click en el fichero **UPDATE-vars.tf** desde el explorador de ficheros.
+## 4. **IMPORTANTE** Actualizar las variables locals necesarias para este primer laboratorio
+- Las variables locals se deben actualizar con los datos únicos para cada participante.
+- Los datos se deben de obtinen desde el [portal formación](http://xs23.xpertsummit-es.com) 
+- Hacer doble click en el fichero **0_UPDATE.tf** desde el explorador de ficheros.
 - Actualizar las siguientes variables con los datos de cada participante.
 ```sh
-// IMPORTANT: UPDATE Owner with your AWS IAM user name
-variable "tags" {
-  description = "Attribute for tag Enviroment"
-  type = map(any)
-  default     = {
-    Owner   = "xs22-eu-west-1-user-1"   //update with your assigned user for access AWS console
-    Name    = "user-1"                  //update with your assigned user name
-    Project = "xs22"                    
+# UPDATE Owner and user with your AWS IAM user name
+  tags = {
+    Owner   = "xs23-eu-west-1-user-1" //update with your assigned user for access AWS console
+    Name    = "user-1"                //update with your assigned user for access AWS console
+    Project = "xs23"
   }
-}
-// Region and Availability Zone where deploy VPC and Subnets
-variable "region" {
-  type = map(any)
-  default = {
-    "region"     = "eu-west-1"   //update with your assigned region
-    "region_az1" = "eu-west-1a"  //update with your assigned AZ
+
+  # UPDATE Region and Availability Zone where deploy VPC and Subnets
+  region = {
+    "id"  = "eu-west-1"  //update with your assigned region
+    "az1" = "eu-west-1a" //update with your assigned AZ
   }
-}
-// CIDR range to use for your VCP: 10.1.x.x group 1 - 10.1.1.0/24 user-1
-variable "vpc-spoke_cidr"{
-  type    = string
-  default = "10.1.1.0/24"   //update with your assigned cidr
-}
+
+  # UPDATE CIDR range with your assignation. (ex. VCP: 10.1.x.x group 1 - 10.1.1.0/24 user-1
+  student_vpc_cidr = "10.10.10.0/24"
+
+  # UPDATE HUB SDWAN public IP and external token
+  hub_fgt_pip      = "34.35.36.37"        //update with data showed in lab web
+  externalid_token = "lab_token_provided" //update with lab token (this will be the VPN PSK)
 ```
 (Recuerda guardar el fichero con los cambios realizados)
 
@@ -122,7 +119,7 @@ Nota: los rangos cidr están repartidos para cada participante y no se solpan, p
 
 ## 5. **IMPORTANTE** - Actualizar las credenciales de acceso programático que usuará Terraform para el despliegue
 - Hacer doble click en el fichero **terraform.tfvars.example** desde el explorador de ficheros.
-- Actualizar las variables con los datos proporcionados en el [portal formación](http://xpertsummit22.jvigueras-fortinet-site.com) 
+- Actualizar las variables con los datos proporcionados en el [portal formación](http://xs23.xpertsummit-es.com) 
 ```
 access_key          = "<AWS Access Key>"
 secret_key          = "<AWS Secret Key>"
@@ -160,9 +157,31 @@ externalid_token    = "<ExternalID token>"
 
 ![Terraform output](./images/image6-2.png)
 
+## 7. **Comprobar conectividad** 
+
+7.1 Comprobación de conectividad a HUB y con servidor local
+- Comprobación de la correcta conexión al HUB
+```sh
+get router info bgp summary
+get router info routing-table bgp
+get router info bgp neighbors 10.10.20.1 ad
+get router info bgp neighbors 10.10.20.1 ro
+```
+![diagnose routing](./images/image7-4-1.png)
+
+![diagnose routing](./images/image7-4-2.png)
+
+- Conexión local contra el servidor (ejecutar desde consola Fortigate)
+```sh
+execute ping 10.x.x.202
+execute telnet 10.x.x.202 80
+diagnose sniffer packet any '10.x.x.202' 4
+```
+
+7.2 Comprobar que vuestro usuario ya aparece en la Leader Board
 
 ## Laboratorio completado
-Pasar a lab 2: [T2_day0_deploy-server](https://github.com/jmvigueras/xpertsummit22/tree/main/T2_day0_deploy-server)
+Pasar a lab 2: [T2_dayN_fgt_terraform](https://github.com/xpertsummit/xpertsummit23/tree/main/T2_dayN_fgt_terraform)
 
 
 ## Support

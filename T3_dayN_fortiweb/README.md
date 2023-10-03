@@ -1,42 +1,42 @@
-# Xpert Summit 2022
-# Automation Cloud training
+# Xpert Summit 2023
+# NetDevOps, protección avanzada API y disponibilidad global
 ## Objetivo del laboratorio
-El objetivo de este laboratorio es dar nociones sobre como desplegar una infraestructura relativamente compleja de hub y spoke en AWS. Además de dar idea de cómo poder operar un firewall Fortigate a través de su API. Durante el laboratorio te familiarizaras con el entorno Terraform y como lanzar y customizaz los despliegues. 
+El objetivo de este laboritorio es dar nociones sobre como desplegar una infraestructura relativamente compleja de hub y spoke en AWS. Además de dar idea de cómo poder operar un firewall Fortigate a través de su API. Durante el laboratio te familizaras con el entorno Terraform y como lanzar y customizar los despligues. 
 
-El formato del laboratorio consiste en 4 entrenamientos diferenciados, que van desde el despliegue básico de un servidor de test y el Fortigate a realizar la configuración ADVPN para poder establecer conexión el HUB central, llamado Golden VPC.
+Además, configurarás una nueva aplicación dentro del servicio de protección WAAP FortiWEB Cloud y realizarás pruebas de RedTeam contra la aplicación y verás como protegerla mediante Machine Learning.  
 
-Los detalles necesarios para poder realizar el curso se encuentra en: 
-http://xpertsummit22.jvigueras-fortinet-site.com
+Por último, configuraras nuestro servicio de Global Service Load Balancing (GSLB) mediante DNS, FortiGSLB, para que los usuarios de la aplicación accedan a la misma siempre a su región más cercana. 
 
-## Indice de laboratorios a completar:
-* T1_day0_deploy-vpc: despliegue del entorno básico en AWS
-* T2_day0_deploy-server: despliegue del servidor de test en spoke
-* T3_day0_deploy-fgt: despliegue de Fortigate standalone en region AZ1
-* **T4_dayN_fgt-terraform**: actualización de configuración del Fortigate mediante Terraform
+El formato del laboratorio consiste en 4 entrenamiento diferenciados y para poder realizarlos encontrarás todos los detalles en la siguiente URL, donde deberás introducir el token facilitado.
 
-## Deployment Overview
+http://labserver.xpertsummit-es.com
 
-En este entrenamiento realizaremos lo siguiente:
-- **IMPORTANTE** se debe haber completado con éxito el laboratorio: T1, T2 y T3
-- Las variables necesarias para poder realizar el despliegue de la IaC se recogen de los anteriores entrenamientos.
-- Los datos necesarios para poder desplegar la configuración en el equipo se cargan de manera automática.
-- Este laboratorio a su vez se divide en tres partes:
-  - Configuración de túnel IPSEC entre el Fortigate spoke y el Fortigate de la VPC golden
-  - Configuración de router BGP para aprendizaje dinámico de rutas entre HUB y SPOKE
-  - Configuración de polítcias de seguridad para permitir el tráfico entre el serividor central y el servidor de test
-- La idea del laboratorio es que se apliquen los cambios de configuración de manera progresiva, cambiando la extensión de los ficheros de Terraform para que cuenten para el plan de despliegue y comprobando como podriamos ir modificando la configuración del Fortigate a través de aquí.
+## Indice de laboratorios a completar
+* T1_day0_IaC_vpc_fgt_server: despliegue del entorno AWS
+* T2_dayN_fgt_terraform: actualiación de configuraicón del Fortigate mediante Terraform
+* **T3_dayN_fortiweb**: creación de una nueva aplicación y protección avanzada API
+* T4_dayN_fortigslb: añadiremos la aplicación a un servicio de balanceo global DNS
 
+## Lab T3. Resumen puesta en marcha
 
-## Diagram solution
+En este laboratorio realizaremos lo siguiente:
+- **IMPORTANTE** se debe haber completado con éxito el laboratorio T2
+- Creación de una nueva aplicación protegida mediante FortiWEB cloud que tenga como servidor de origen el nuevo servicio publicado en nuestro fortigate mediante VIP y por tanto, al servidor final del laboratorio. (Completar [T2_dayN_fgt_terraform](./T2_dayN_fgt_terraform) sino se ha realizado ya)
+- Lanzaremos pruebas de carga contra FortiWEB para que aprenda los patrones de tráfico de la aplicación y pueda aplicar protección avanzada no basada en firmas, mediante ML.
+- Ejercicios de RedTeam para probar la eficacia de la protección.
 
-![architecture overview](images/image0.png)
+## Diagrama del laboratorio
+
+![architecture overview](./images/image0.png)
 
 
 # LAB
 ## Pasos a seguir:
 
-## 1. Conexión al entorno de desarrollo Cloud9
-- (Revisar pasos laboratorio T1)
+## 1. Conexión al portal de Fortiweb Cloud
+- Los datos de acceso se proporcionan en el portal del laboratorio: `account`, `user`y `password`. 
+
+
 
 ## 2.  Acceder a la carpeta T4_dayN_fgt-terraform
 - Abrir un nuevo terminal y entrar en la carpeta del laboratorio
