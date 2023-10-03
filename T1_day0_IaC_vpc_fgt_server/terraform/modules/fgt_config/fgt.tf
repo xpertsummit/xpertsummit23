@@ -12,7 +12,7 @@ data "template_file" "fgt" {
     adminusername  = "admin"
     type           = var.license_type
     license_file   = var.license_file
-    rsa-public-key = var.rsa-public-key
+    rsa-public-key = var.rsa-public-key != null ? var.rsa-public-key : ""
     api_key        = var.api_key == null ? random_string.api_key.result : var.api_key
 
     public_port  = var.fgt_port_mapping["public"]

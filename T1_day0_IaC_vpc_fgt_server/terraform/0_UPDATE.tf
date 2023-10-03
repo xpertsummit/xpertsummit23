@@ -22,6 +22,9 @@ locals {
   # HUB SDWAN fortigate details
   hub_fgt_pip      = "34.35.36.37"        //update with data showed in lab web
   externalid_token = "lab_token_provided" //update with lab token (this will be the VPN PSK)
+
+  # AWS account_id
+  account_id = "042579xxxxx"
 }
 
 
