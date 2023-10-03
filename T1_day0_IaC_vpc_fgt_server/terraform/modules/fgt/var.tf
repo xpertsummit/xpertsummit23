@@ -12,7 +12,7 @@ variable "suffix" {
 variable "tags" {
   description = "Attribute for tag Enviroment"
   type        = map(any)
-  default =  {
+  default = {
     Owner   = "eu-west-1-user-0"
     Name    = "user-0"
     Project = "xs23"

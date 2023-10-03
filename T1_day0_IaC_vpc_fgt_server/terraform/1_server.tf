@@ -22,8 +22,9 @@ resource "aws_eip" "student_server" {
 # Deploy cluster master node
 module "student_server" {
   depends_on = [module.student_fgt]
-  source     = "git::github.com/jmvigueras/modules//aws/new-instance_ni"
+  source     = "./modules/new-instance_ni"
 
+  tags    = local.tags
   prefix  = "${local.prefix}-stdent-0-server"
   keypair = aws_key_pair.keypair.key_name
 

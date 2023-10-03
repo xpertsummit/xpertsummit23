@@ -28,7 +28,7 @@ resource "aws_instance" "fgt" {
 
   tags = {
     Owner   = var.tags["Owner"]
-    Name = "${local.prefix}-fgt-${var.suffix}"
+    Name    = "${local.prefix}-fgt-${var.suffix}"
     Project = var.tags["Project"]
   }
 }

@@ -26,7 +26,7 @@ resource "aws_network_interface_attachment" "fgt_nis_attach" {
 resource "aws_eip" "fgt_eip_public" {
   domain            = "vpc"
   network_interface = local.fgt_ni_ids["public"]
-  
+
   tags = {
     Owner   = var.tags["Owner"]
     Name    = "${local.prefix}-fgt-${var.suffix}-public-eip"
@@ -38,7 +38,7 @@ resource "aws_eip" "fgt_eip_mgmt" {
   domain = "vpc"
   // vpc           = true
   network_interface = local.fgt_ni_ids["mgmt"]
-  
+
   tags = {
     Owner   = var.tags["Owner"]
     Name    = "${local.prefix}-fgt-${var.suffix}-mgmt-eip"

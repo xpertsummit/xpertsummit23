@@ -18,6 +18,7 @@ module "student_fgt_config" {
 module "student_fgt" {
   source = "./modules/fgt"
 
+  tags          = local.tags
   region        = local.region
   instance_type = local.fgt_instance_type
   keypair       = aws_key_pair.keypair.key_name
