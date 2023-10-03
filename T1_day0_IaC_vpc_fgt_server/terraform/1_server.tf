@@ -7,17 +7,15 @@ resource "aws_network_interface" "student_server" {
   security_groups   = [module.student_vpc.sg_ids["bastion"]]
   private_ips       = [cidrhost(module.student_vpc.subnet_cidrs["bastion"], 10)] // "x.x.x.202"
   source_dest_check = false
-  tags = {
-    Name = "${local.prefix}-student-0-server"
-  }
+
+  tags = local.tags
 }
 # Create EIP active public NI for server test
 resource "aws_eip" "student_server" {
   domain            = "vpc"
   network_interface = aws_network_interface.student_server.id
-  tags = {
-    Name = "${local.prefix}-student-0-server"
-  }
+  
+  tags = local.tags
 }
 # Deploy cluster master node
 module "student_server" {
@@ -25,7 +23,6 @@ module "student_server" {
   source     = "./modules/new-instance_ni"
 
   tags    = local.tags
-  prefix  = "${local.prefix}-stdent-0-server"
   keypair = aws_key_pair.keypair.key_name
 
   instance_type = local.srv_instance_type
