@@ -52,58 +52,11 @@ En este entrenamiento realizaremos lo siguiente:
 - Comprobación que el servicio añade a la resolución DNS de la aplicación nuestra IP.
 
 
-
-## Diagram solution
+## Diagrama general de los laboratorios
 
 ![architecture overview](images/image0.png)
 
 
-# LAB
-## Pasos a seguir:
-
-## 1. Conexión al entorno de desarrollo Cloud9
-- (Revisar detalle de pasos en laboratorio T1)
-
-## 2. Clonar repositorio Git
-- (Revisar detalle de pasos en laboratorio T1)
-
-## 3.  Acceder a la carpeta del laboratorio correspondiente
-- Abrir un nuevo terminal y entrar en la carpeta del laboratorio
-```
-cd T1_day0_IaC_vpc_fgt_server\terraform
-```
-- Desde el navegador de ficheros de la parte izquierda desplegando la carpeta correspondiente
-
-## 4. **IMPORTANTE** Seguir las indicaciones del laboratorio T1
-- Las variables necesarias para este laboratorio se completan en el laboratorio T1
-- Las credendiales y resto de variables se importan desde el laboratorio T1 al resto
-- Cambiar el nombre al fichero `terraform.tfvars.example` a `terraform.tfvars`
-
-## 7. **Despligue** 
-- (Seguir las indicaciones de cada laboratorio)
-
-## 8. Comandos Terraform para despliegue
-
-## Inicialización de providers y modulos:
-  ```sh
-  $ terraform init
-  ```
-* Crear un plan de despliegue y 
-  ```sh
-  $ terraform plan
-  ```
-* Comprobación que toda la configuración es correcta y no hay fallos.
-* Desplegar el plan.
-  ```sh
-  $ terraform apply
-  ```
-* Confirmar despligue, type `yes`.
-
-
-La salida incluye todo el detalle del despligue:
-```sh
-Outputs:
-```
 
 
 ## Support
