@@ -33,149 +33,105 @@ En este entrenamiento realizaremos lo siguiente:
 # LAB
 ## Pasos a seguir:
 
-## 1. Conexión al entorno de desarrollo Cloud9
-- (Revisar pasos laboratorio T1)
+## 1. Conexión al servicio de FortiGSLB
+- En el portal de laboratorio, se ha asigando a cada participante una credencial de FortiCloud.
 
-## 2.  Acceder a la carpeta T4_dayN_fgt-terraform
-- Abrir un nuevo terminal y entrar en la carpeta del laboratorio
-```
-cd T4_dayN_fgt-terraform
-```
+![image1-1.png](images/image1-1.png)
+
+- Con esas credenciales acceder al servicio SaaS de FortiGSLB en la url [FortiGSLB](https://www.fortigslb.com/#/login)
+
+![image1-2.png](images/image1-2.png)
+
+## 2. Acceso a la organización 
+- En la página de bienvenida solicitará acceder a una organización. Hemos creado una para este laboratorio: `xpersummit`
 - Desde el navegador de ficheros de la parte izquierda desplegando la carpeta correspondiente al T4
 
-## 3. **IMPORTANTE** - completar con éxito el laboratorio T1 al T3 para continuar
-- En ete laboratorio NO son necesarias Las credendiales progrmáticas ACCESS_KEY y SECRET_KEY, ya que el provider a usar es fortios, revisar fichero `provider.tf`
-- En este laboratorio NO es necesario el fichero `terraform.tfvars`
-- Es necesario actualizar el fichero de variables `vars.tf` con los datos del HUB (**recordatorio** el dato de hub_fgt_pip se encuentra en el [portal](http://xpertsummit22.jvigueras-fortinet-site.com/))
+![image2-1.png](images/image2-1.png)
 
-(Recordar siempre guardar el fichero tras los cambios)
+## 3. Creación de conector y servidor
+- Desde FortiGSLB podemos configurar un conector a nuestros Fortigates o FortiADC desplegados en diferentes data centers. 
+- El paso previo a dar de alta un nuevo servidor de origen para la resulución DNS, es crear un nuevo conector. 
+
+### 3.1. Nuevo conector
+- Desde el menú de la izquierda seleccionaremos `Fabric Connectors`
+
+![image3-1-1.png](images/image3-1-1.png)
+
+- Una vez dentro de la sección `Fabric Connectors` crearemos un nuevo conector del tipo Fortigate.
+
+![image3-1-2.png](images/image3-1-2.png)
+
+- Los campos necesarios a completar son los siguientes:
+
+  * Name: `Owner`
+  * Data Center: (el correspondiente a tu región)
+  * Address IPv4: (IP de management de tu fortigate, desplegado en lab T1) 
+  * Port: (puerto de gestión del fortigate)
+  * Type: `FortiGate`
+  * Sync Control: `Virtual Server`
+  * Auth Tokent: (api_key de tu fortigate, desplegado en lab T1)
+
+
+![image3-1-3.png](images/image3-1-3.png)
+
+- Recuerda darle a `Save`
+
+### 3.2. Nuevo servidor
+- Completado el paso 3.1 y tras darle a salvar, nos aparecerá una nueva opción para asociar un nuevo miembre o servidor a este conector.
+
+![image3-2-1.png](images/image3-2-1.png)
+
+- Los datos que necesitamos completar son los siguientes:
+
+  * Name: `Owner`-server
+  * IP Address: (IP pública de servicio tu fortigate, desplegado en lab T1)
+
+![image3-2-2.png](images/image3-2-2.png)
+
+- Recuerda darle a `Save`
+
+
+## 4. Añadir nuestro servidor al pool students
+- Para que el servicio de GSLB incluya al nuevo servidor, debemos añadirlo a la lista de servidores del pool. 
+- Seleccionamos en el menú de la izquierda  `Profiles > Pool`
+
+![image4-1.png](images/image4-1.png)
+
+- Dentro de los Pools configurados, seleccionaremos `student-pool` y clicaremos en el botón de editar. 
+
+![image4-2.png](images/image4-2.png)
+
+- Una vez dentro del pool nos iremos a `Create Member` para añadir el nuevo servidor 
+
+![image4-3.png](images/image4-3.png)
+
+- En el desplegable `Virtual Server` buscaremos el servidor que acabamos de crear en pasos anteriores.
+
+![image4-4.png](images/image4-4.png)
+
+- Recuerda darle a `Save`
+
+Con estos pasos, nuestro servidor acaba de añadirse al pool `student-pool`. Este pool, es el que se ha configurado para la resolución de nombres del FQDN: `students.cloudlab.xpertsummit-es.com`, de forma que cuando se realizan consultas DNS a FortiGSLB, resolverá con las IPs del pool con orden dependiente de la region del cliente que realiza las consultas. Esto es así porque hemos configurado un servicio GSLB con balanceo tipo GEO. 
+
+Puedes consultar esta configuraicón desde el menú del izquierda en `GSLB Services`
+
+***NOTA: recuerda no modificar otras configuraciones para no entorpercer el trabajo de tus compañeros***
+
+## 5. Comprobar resolución DNS
+
+- Desde la consola de Cloud9 o desde vuestro PC podeis lanzar una consulta DNS para el FQDN `students.cloudlab.xpersummit-es.com` para comprobar las IPs resueltas. 
+
+- Para lanzar la consulta directamente a FortiGSLB, es posible consultar directamente a nuestra instancia FortiGSLB por su IP anycast. 
 
 ```sh
-variable "vpc-golden_hub" {
-  type = map(any)
-  default = {
-    "bgp_asn"        = "65001"          // BGP ASN HUB central (golden VPC)
-    "advpn_pip"      = "<hub_fgt_pip>"  // Update with public IP Golden HUB
-    "advpn_net"      = "10.10.20.0/24"  // Internal CIDR range for ADVPN tunnels private
-    "sla_hck_ip"     = "10.10.40.10"    // (FUTURE USE) Not necessary in this lab
-  }
-}
-```
+dig students.cloudlab.xpertsummit-es.com 
 
-## 4. **Despliegue** 
+dig @75.2.49.209 students.cloudlab.xpertsummit-es.com
+``````
 
-4.1 Creación de nuevo túnel IPSEC ADVPN contra el HUB central
-- Cambiamos el nombre del fichero `1_ipsec-to-golden.tf.example` a `1_ipsec-to-golden.tf`
-- Inicializamos el proceso de despliegue (revisar punto 8)
-- Comprobar desde la GUI del Fortigate el correcto despliegue del túnel IPSEC
-
-![architecture overview](images/image4-1.png)
-
-4.2 Configuración de router BGP
-- Cambiamos el nombre del fichero `2_bgp-route.tf.example` a `2_bgp-route.tf`
-- Inicializamos el proceso de despliegue (revisar punto 8)
-- Comprobaremos que no va a realizar ningún cambio sobre la configuración anterior que hemos desplegado
-- Comprobar desde la GUI del Fortigate el correcto despliegue
-
-```sh
-user-1-fgt # show router bgp
-config router bgp
-    set as 65011
-    set keepalive-timer 10
-    set holdtime-timer 3
-    config neighbor
-        edit "10.10.20.254"
-            set remote-as 65001
-        next
-    end
-    config network
-        edit 1
-            set prefix 10.1.1.0 255.255.255.0
-        next
-    end
-```
-
-4.3 Configuración de política de seguridad
-- Cambiamos el nombre del fichero `3_policy-to-server.tf.example` a `3_policy-to-server.tf`
-- Inicializamos el proceso de despliegue (revisar punto 8)
-- Comprobaremos que no va a realizar ningún cambio sobre la configuración anterior que hemos desplegado
-- Comprobar desde la GUI del Fortigate el correcto despliegue
-
-![architecture overview](images/image4-3.png)
-
-- Comprobación que ahora la VPN aparece levantada
-
-![architecture overview](images/image4-3-2.png)
-
-4.4 Configuración de ruta estática
-- Revisar la documentación de [Terraform FortiOS Provider](https://registry.terraform.io/providers/fortinetdev/fortios/latest/docs) y buscar el resource correspondiente a "fortios_router_static"
-- Completar el fichero `4_static-route.tf` para generar una nueva ruta estática:
-  - La ruta estática tendrá como destino la propia red del spoke (datos para el lab vpc_cidr)
-  - El puerto destino será "port3"
-  - El GW destino será la primera dirección IP del rango asignado al puerto 3: 10.x.x.129
-
-<details><summary>Help</summary>
-<p>
-
-```sh
-resource "fortios_router_static" "trname" {
-  device              = "port3"
-  dst                 = "10.x.x.0 255.255.255.0"
-  gateway             = "10.x.x.129"
-  status              = "enable"
-}
-```
-</p>
-</details>
-
-- Inicializamos el proceso de despliegue (revisar punto 8)
-- Comprobaremos que no va a realizar ningún cambio sobre la configuración anterior que hemos desplegado
-- Comprobar desde la GUI del Fortigate el correcto despliegue
-
-
-4.5 Comprobación de conectividad a HUB y con servidor local
-- Comprobación de la correcta conexión al HUB (Golden VPC)
-```sh
-get router info bgp summary
-get router info routing-table bgp
-get router info bgp neighbors 10.10.20.254 ad
-get router info bgp neighbors 10.10.20.254 ro
-```
-![diagnose routing](./images/image7-4-1.png)
-
-![diagnose routing](./images/image7-4-2.png)
-
-- Conexión local contra el servidor (ejecutar desde consola Fortigate)
-```sh
-execute ping 10.x.x.234
-execute telnet 10.x.x.234 80
-diagnose sniffer packet any '10.x.x.234' 4
-```
+![image5-1.png](images/image5-1.png)
 
 ## Laboratorio completado
-
-## 5. Comandos Terraform para despliegue
-
-## Inicialización de providers y modulos:
-  ```sh
-  $ terraform init
-  ```
-* Crear un plan de despliegue y 
-  ```sh
-  $ terraform plan
-  ```
-* Comprobación que toda la configuración es correcta y no hay fallos.
-* Desplegar el plan.
-  ```sh
-  $ terraform apply
-  ```
-* Confirmar despliegue, type `yes`.
-
-
-La comprobación de despliegue se debe realizar desde la GUI del Fortigate.
-```sh
-Outputs:
-```
 
 ## Support
 This a personal repository with goal of testing and demo Fortinet solutions on the Cloud. No support is provided and must be used by your own responsability. Cloud Providers will charge for this deployments, please take it in count before proceed.
