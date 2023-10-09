@@ -9,7 +9,7 @@ Por último, configuraras nuestro servicio de Global Service Load Balancing (GSL
 
 El formato del laboratorio consiste en 4 entrenamiento diferenciados y para poder realizarlos encontrarás todos los detalles en la siguiente URL, donde deberás introducir el token facilitado.
 
-http://labserver.xpertsummit-es.com
+http://xs23.xpertsummit-es.com
 
 ## Indice de laboratorios a completar
 * T1_day0_IaC_vpc_fgt_server: despliegue del entorno AWS
@@ -63,7 +63,7 @@ En este entrenamiento realizaremos lo siguiente:
 
 - Los campos necesarios a completar son los siguientes:
 
-  * Name: `Owner`
+  * Name: `Owner` (Owner asignado para el laboratorio)
   * Data Center: (el correspondiente a tu región)
   * Address IPv4: (IP de management de tu fortigate, desplegado en lab T1) 
   * Port: (puerto de gestión del fortigate)
@@ -83,7 +83,7 @@ En este entrenamiento realizaremos lo siguiente:
 
 - Los datos que necesitamos completar son los siguientes:
 
-  * Name: `Owner`-server
+  * Name: `Owner`-server (Owner asignado para el laboratorio)
   * IP Address: (IP pública de servicio tu fortigate, desplegado en lab T1)
 
 ![image3-2-2.png](images/image3-2-2.png)

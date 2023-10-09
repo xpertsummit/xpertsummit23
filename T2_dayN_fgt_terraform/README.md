@@ -9,7 +9,7 @@ Por último, configuraras nuestro servicio de Global Service Load Balancing (GSL
 
 El formato del laboratorio consiste en 4 entrenamiento diferenciados y para poder realizarlos encontrarás todos los detalles en la siguiente URL, donde deberás introducir el token facilitado.
 
-http://labserver.xpertsummit-es.com
+http://xs23.xpertsummit-es.com
 
 ## Indice de laboratorios a completar
 * T1_day0_IaC_vpc_fgt_server: despliegue del entorno AWS

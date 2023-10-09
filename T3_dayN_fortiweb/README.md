@@ -9,7 +9,7 @@ Por último, configuraras nuestro servicio de Global Service Load Balancing (GSL
 
 El formato del laboratorio consiste en 4 entrenamiento diferenciados y para poder realizarlos encontrarás todos los detalles en la siguiente URL, donde deberás introducir el token facilitado.
 
-http://labserver.xpertsummit-es.com
+http://xs23.xpertsummit-es.com
 
 ## Indice de laboratorios a completar
 * T1_day0_IaC_vpc_fgt_server: despliegue del entorno AWS
@@ -53,7 +53,7 @@ En este laboratorio realizaremos lo siguiente:
 ![image2-2.png](images/image2-2.png)
 
 - Wizard step 1: Nombre de applicación y dominio
-    * Web Application Name: `Owner`-app
+    * Web Application Name: `Owner`-app (Owner asignado para el laboratorio)
     * Domain Name: `Owner`.xpertsummit-es.com
 
 ![image2-3.png](images/image2-3.png)
@@ -66,14 +66,14 @@ En este laboratorio realizaremos lo siguiente:
 
 ![image2-4.png](images/image2-4.png)
 
-- Wizard step 3: Habilitar CDN
-    * services allowed: (NO habilitamos servicios de CDN)
+- Wizard step 3: CDN
+    * services allowed: (NO habilitaremos servicios de CDN)
 
 ![image2-5.png](images/image2-5.png)
 
 - Wizard step 4: Habilitar modo bloqueo y template
     * Enable Block mode: (le dajamos en detección OFF)
-    * Template: `xpertsummit22` (selecionamos este template en el desplegable)
+    * Template: `xpertsummit23` (selecionamos este template en el desplegable)
 
 ![image2-6.png](images/image2-6.png)
 
@@ -87,7 +87,7 @@ En este laboratorio realizaremos lo siguiente:
 
 ![image2-8.png](images/image2-8.png)
 
-FortiWEB Cloud despliega instancias cercanas a la aplicación de manera automatica, siendo los principales Datacenters AWS, Azure, GCP y OCI. 
+FortiWEB Cloud despliega instancias cercanas a la aplicación de manera automática, siendo los principales Datacenters AWS, Azure, GCP y OCI. 
 
 ## 4. RedTeam
 
