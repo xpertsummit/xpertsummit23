@@ -87,8 +87,14 @@ En este laboratorio realizaremos lo siguiente:
 
 ![image2-8.png](images/image2-8.png)
 
-
 FortiWEB Cloud despliega instancias cercanas a la aplicación de manera automatica, siendo los principales Datacenters AWS, Azure, GCP y OCI. 
+
+## 4. RedTeam
+
+
+## 5. Training the ML model
+El template de seguridad aplicado, lleva activado la protección de APIs mediante Machine Learning. Para que el modelo pueda aprender el patron de tráfico de la aplicación, vamos a forzar cierto tráfico mediante un script. 
+
 
 
 ## Support
