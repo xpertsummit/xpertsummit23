@@ -29,20 +29,66 @@ En este laboratorio realizaremos lo siguiente:
 
 ![architecture overview](./images/image0.png)
 
-
 # LAB
 ## Pasos a seguir:
 
-## 1. Conexión al portal de Fortiweb Cloud
-- Acceso al portal [FortiWEB Cloud](https://www.fortiweb-cloud.com/)
-- Los datos de acceso se proporcionan en el portal del laboratorio: `account`, `user`y `password`. 
+## 1. Conexión al servicio de FortiWEB Cloud
+- En el portal de laboratorio, se ha asigando a cada participante una credencial de FortiCloud.
+
+![image1-1.png](images/image1-1.png)
+
+- Con esas credenciales acceder al servicio SaaS de FortiGSLB en la url [FortiWEB Cloud](https://www.fortiweb-cloud.com/)
+
+![image1-2.png](images/image1-2.png)
 
 
+## 2. Creación de una nueva aplicación
+- La creación de una nueva aplicación en FortiWEB Cloud es bastante sencilla. En este laboratorio realizaremos el alta via GUI en el portal, pero se puede automatizar realizando peticiones a la API del servicio. [FortiWEB Cloud API reference](https://www.fortiweb-cloud.com/apidoc/api.html)
+- En el menú de la izquierda seleccionaremos `Global > Applications`
+
+![image2-1.png](images/image2-1.png)
+
+- Dentro de la sección aplicaciones, clicaremos en `ADD APPLICATION` para arrancar el wizard de alta. 
+
+![image2-2.png](images/image2-2.png)
+
+- Wizard step 1: Nombre de applicación y dominio
+    * Web Application Name: `Owner`-app
+    * Domain Name: `Owner`.xpertsummit-es.com
+
+![image2-3.png](images/image2-3.png)
+
+- Wizard step 2: Protocolo, puertos e IP origen del servidor
+    * services allowed: HTTP
+    * IP Address or FQDN: (IP pública de servicio Fortigate)
+    * Port: 80
+    * Test Server: (comprobar conexión al servidor usando HTTP)
+
+![image2-4.png](images/image2-4.png)
+
+- Wizard step 3: Habilitar CDN
+    * services allowed: (NO habilitamos servicios de CDN)
+
+![image2-5.png](images/image2-5.png)
+
+- Wizard step 4: Habilitar modo bloqueo y template
+    * Enable Block mode: (le dajamos en detección OFF)
+    * Template: `xpertsummit22` (selecionamos este template en el desplegable)
+
+![image2-6.png](images/image2-6.png)
+
+- Completado: 
+    * El resultado es el nuevo CNAME de nuestra applicación para acceder desde FortiWEB Cloud y poder actualizar nuestros servidores DNS.
+    * Desde el nuevo fqdn podremos acceder a nuestra aplicación a través de FortiWEB Cloud.
+
+![image2-7.png](images/image2-7.png)
+
+- En el menú general de aplicaciones podremos ver cómo FortiWEB Cloud de forma automática ha desplegado una instancia de FortiWEB en el Datacenter más cercano a la aplicación. 
+
+![image2-8.png](images/image2-8.png)
 
 
-
-
-
+FortiWEB Cloud despliega instancias cercanas a la aplicación de manera automatica, siendo los principales Datacenters AWS, Azure, GCP y OCI. 
 
 
 ## Support
