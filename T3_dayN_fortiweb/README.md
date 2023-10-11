@@ -89,13 +89,48 @@ En este laboratorio realizaremos lo siguiente:
 
 FortiWEB Cloud despliega instancias cercanas a la aplicación de manera automática, siendo los principales Datacenters AWS, Azure, GCP y OCI. 
 
-## 4. RedTeam
+## 4. Creación de nuevo CNAME
+Para que resulte más sencillo acceder a la nueva aplicación desplegada en FortiWEB Cloud, vamos a generar un nuevo CNAME en nuestro DNS más sencillo resolviendo al FQDN proporciando por FortiWEB Cloud al crear la misma. 
 
+- Ir la carpeta de scripts: 
+```sh
+cd scripts
+```
+- Añadir permisos de ejecución al script:
+```sh
+chmod +x dns_student_cname.sh
+```
+- Ejecutar el script y proporcionar los siguientes parámetros cuando los solicite:
+```sh
+./dns_student_cname.sh
+Introduce el token del laboratorio: <lab_token>
+Introduce el FQDN de FortiWEB Cloud: <FQDN_fortiwebcloud_applicacion>
+```
+- Si todo funciona correctamente, se creará una nueva entrada de tipo de CNAME para acceder a la aplicación.
+
+Nueva URL de acceso: http://{Owner}.xpertsummit-es.com
 
 ## 5. Training the ML model
-El template de seguridad aplicado, lleva activado la protección de APIs mediante Machine Learning. Para que el modelo pueda aprender el patron de tráfico de la aplicación, vamos a forzar cierto tráfico mediante un script. 
+El template de seguridad aplicado, lleva activado la protección de APIs mediante Machine Learning. Para que el modelo pueda aprender el patron de tráfico de la aplicación, vamos a forzar cierto tráfico mediante un par de script. 
 
+- Ir la carpeta de scripts: 
+```sh
+cd scripts
+```
+- Añadir permisos de ejecución al script:
+```sh
+chmod +x fwb_training_get.sh
+chmod +x fwb_training_post.sh
+```
+- Ejecutar los scripts (para que funcione correctamente se debe completar el paso 4)
+```sh
+./fwb_training_get.sh
+```
+```sh
+./fwb_training_post.sh
+```
 
+## 6. ReadTeam
 
 ## Support
 This a personal repository with goal of testing and demo Fortinet solutions on the Cloud. No support is provided and must be used by your own responsability. Cloud Providers will charge for this deployments, please take it in count before proceed.

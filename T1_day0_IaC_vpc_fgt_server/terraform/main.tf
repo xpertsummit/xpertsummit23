@@ -54,6 +54,20 @@ locals {
 }
 
 #--------------------------------------------------------------------------
+# Write AWS CLI credentials in Cloud9 instance
+#--------------------------------------------------------------------------
+resource "local_file" "aws_cli_credentials" {
+  content = <<-EOT
+    [default]
+    aws_access_key_id = ${var.access_key}
+    aws_secret_access_key = ${var.secret_key}
+    aws_session_token = 
+  EOT
+  filename        = "/home/ec2-user/.aws/credentials"
+  file_permission = "0600"
+}
+
+#--------------------------------------------------------------------------
 # Necessary variables if not provided
 #--------------------------------------------------------------------------
 # Create key-pair
