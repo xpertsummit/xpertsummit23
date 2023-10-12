@@ -113,6 +113,8 @@ Nueva URL de acceso: http://{Owner}.xpertsummit-es.com
 ## 5. Training the ML model
 El template de seguridad aplicado, lleva activado la protección de APIs mediante Machine Learning. Para que el modelo pueda aprender el patron de tráfico de la aplicación, vamos a forzar cierto tráfico mediante un par de script. 
 
+5.1 Lanzar los scripts de entrenamiento y aprendizaje
+
 - Ir la carpeta de scripts: 
 ```sh
 cd scripts
@@ -130,7 +132,60 @@ chmod +x fwb_training_post.sh
 ./fwb_training_post.sh
 ```
 
+5.2 Comprobación de los patrones aprendidos
+
+- Iremos a la sección API colection de la aplicación
+- Ir a API View
+
 ## 6. ReadTeam
+
+6.1 Query Parameter Violation
+
+    "status" JSON parameter is missing in the JSON request and is blocked by FortiWeb-Cloud. The expected result is a Request query validation failed status.
+```sh
+curl -v -X 'GET' 'https://{Owner}.xpertsummit-es.com/api/pet/findByStatus?' -H 'Accept: application/json' -H 'Content-Type: application/json'
+```
+
+6.2 URL Query Parameter Long
+
+    "status" URL query parameter is too long. The expected result, JSON parameter length violation.
+
+```sh
+curl -v -X 'GET'   'https://{Owner}.xpertsummit-es.com/api/pet/findByStatus?status=ABCDEFGHIJKL' -H 'Accept: application/json' -H 'Content-Type: application/json'
+```
+
+6.3 URL Query Parameter Short
+
+    "status" URL query parameter is too short. The expected result is a parameter violation.
+
+```sh
+curl -v -X 'GET'   'https://{Owner}.xpertsummit-es.com/api/pet/findByStatus?status=A' -H 'Accept: application/json' -H 'Content-Type: application/json'
+```
+
+6.4 Cross Site Script in URL
+
+    "status" URL query parameter will carry a Command Injection attack. The expected result is a known signature violation.
+```sh
+curl -v -X 'GET'   'https://{Owner}.xpertsummit-es.com/api/pet/findByStatus?status=<script>alert(123)</script>'  -H 'Accept: application/json' -H 'Content-Type: application/json'
+```
+
+6.5 Cross Site Script in Body
+
+    "status" JSON body will carry an XSS attack. The expected result, the attack is being blocked by Machine Learning.
+
+```sh
+curl -v -X 'POST' 'https://{Owner}.xpertsummit-es.com/api/pet' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{"id": 111, "category": {"id": 111, "name": "Camel"}, "name": "FortiCamel", "photoUrls": ["WillUpdateLater"], "tags": [ {"id": 111, "name": "FortiCamel"}], "status": "<script>alert(123)</script>"}'
+```
+
+6.6 Zero Day Attacks
+
+    We will now use some sample Zero Day Attacks.
+
+    Cross Site Script in the Body
+
+```sh
+curl -v -X 'POST' 'https://{Owner}.xpertsummit-es.com/api/pet' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{"id": 111, "category": {"id": 111, "name": "Camel"}, "name": "javascript:qxss(X160135492Y1_1Z);", "photoUrls": ["WillUpdateLater"], "tags": [ {"id": 111, "name": "FortiCamel"}], "status": "available”}'
+```
 
 ## Support
 This a personal repository with goal of testing and demo Fortinet solutions on the Cloud. No support is provided and must be used by your own responsability. Cloud Providers will charge for this deployments, please take it in count before proceed.
