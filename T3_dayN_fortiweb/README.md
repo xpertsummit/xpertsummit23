@@ -60,7 +60,7 @@ En este laboratorio realizaremos lo siguiente:
 
 - Wizard step 2: Protocolo, puertos e IP origen del servidor
     * services allowed: HTTP
-    * IP Address or FQDN: (IP pública de servicio Fortigate)
+    * IP Address or FQDN: (IP pública de servicio Fortigate, recordad que existe una VIP para publicar el servicio)
     * Port: 80
     * Test Server: (comprobar conexión al servidor usando HTTP)
 

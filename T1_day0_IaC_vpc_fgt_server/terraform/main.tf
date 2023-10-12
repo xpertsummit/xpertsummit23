@@ -9,6 +9,7 @@ locals {
   fgt_instance_type = "c6i.large"
   fgt_build         = "build1517"
   license_type      = "payg"
+  fgt_cidrhost      = "10"
   # HUB SDWAN
   hub = [{
     id                = "HUB"
@@ -72,7 +73,7 @@ resource "local_file" "aws_cli_credentials" {
 #--------------------------------------------------------------------------
 # Create key-pair
 resource "aws_key_pair" "keypair" {
-  key_name   = "${local.prefix}-keypair-${trimspace(random_string.keypair.result)}}"
+  key_name   = "${local.prefix}-keypair-${trimspace(random_string.keypair.result)}"
   public_key = tls_private_key.ssh.public_key_openssh
 }
 resource "tls_private_key" "ssh" {

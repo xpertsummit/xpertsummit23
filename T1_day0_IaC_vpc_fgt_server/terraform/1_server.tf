@@ -31,13 +31,13 @@ module "student_server" {
 
   ni_id = aws_network_interface.student_server.id
 }
-# Generate template file
+# Generate template file with user-data
 data "template_file" "student_server_user_data" {
   template = file("./templates/student_user-data.tpl")
   vars = {
     docker_image         = local.docker_image
     docker_port_internal = local.docker_port_internal
     docker_port_external = "80"
-    docker_env           = "-e SWAGGER_HOST=http://${aws_eip.student_server.public_ip} -e SWAGGER_BASE_PATH=/v2 -e SWAGGER_URL=http://${aws_eip.student_server.public_ip}"
+    docker_env           = "-e SWAGGER_HOST=http://${module.student_fgt.fgt_eip_public} -e SWAGGER_BASE_PATH=/v2 -e SWAGGER_URL=http://${module.student_fgt.fgt_eip_publicp}"
   }
 }
