@@ -17,3 +17,4 @@ resource "aws_route" "r-rt-bastion-3" {
   destination_cidr_block = "10.0.0.0/8"
   network_interface_id   = local.fgt_ni_ids["private"]
 }
+

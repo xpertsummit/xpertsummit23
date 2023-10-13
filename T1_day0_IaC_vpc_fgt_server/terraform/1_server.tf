@@ -45,6 +45,7 @@ data "template_file" "student_server_user_data" {
     docker_image         = local.docker_image
     docker_port_internal = local.docker_port_internal
     docker_port_external = "80"
-    docker_env           = "-e SWAGGER_HOST=http://${local.tags["Owner"]}.${local.lab_dns_name} -e SWAGGER_BASE_PATH=/v2 -e SWAGGER_URL=http://${local.tags["Owner"]}.${local.lab_dns_name}"
+    // docker_env           = "-e SWAGGER_HOST=http://${local.tags["Owner"]}.${local.lab_dns_name} -e SWAGGER_BASE_PATH=/v2 -e SWAGGER_URL=http://${local.tags["Owner"]}.${local.lab_dns_name}"
+    docker_env           = "-e SWAGGER_HOST=http://${module.student_fgt.fgt_eip_public} -e SWAGGER_BASE_PATH=/v2 -e SWAGGER_URL=http://${module.student_fgt.fgt_eip_public}"
   }
 }

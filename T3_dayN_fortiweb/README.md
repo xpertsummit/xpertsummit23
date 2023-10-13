@@ -158,7 +158,7 @@ chmod +x fwb_training_post.sh
 
     "status" JSON parameter is missing in the JSON request and is blocked by FortiWeb-Cloud. The expected result is a Request query validation failed status.
 ```sh
-curl -v -X 'GET' 'https://{Owner}.xpertsummit-es.com/api/pet/findByStatus?' -H 'Accept: application/json' -H 'Content-Type: application/json'
+curl -v -X 'GET' 'https://{Owner}.xpertsummit-es.com/v2/pet/findByStatus?' -H 'Accept: application/json' -H 'Content-Type: application/json'
 ```
 
 6.2 URL Query Parameter Long
@@ -166,7 +166,7 @@ curl -v -X 'GET' 'https://{Owner}.xpertsummit-es.com/api/pet/findByStatus?' -H '
     "status" URL query parameter is too long. The expected result, JSON parameter length violation.
 
 ```sh
-curl -v -X 'GET'   'https://{Owner}.xpertsummit-es.com/api/pet/findByStatus?status=ABCDEFGHIJKL' -H 'Accept: application/json' -H 'Content-Type: application/json'
+curl -v -X 'GET'   'https://{Owner}.xpertsummit-es.com/v2/pet/findByStatus?status=ABCDEFGHIJKL' -H 'Accept: application/json' -H 'Content-Type: application/json'
 ```
 
 6.3 URL Query Parameter Short
@@ -174,14 +174,14 @@ curl -v -X 'GET'   'https://{Owner}.xpertsummit-es.com/api/pet/findByStatus?stat
     "status" URL query parameter is too short. The expected result is a parameter violation.
 
 ```sh
-curl -v -X 'GET'   'https://{Owner}.xpertsummit-es.com/api/pet/findByStatus?status=A' -H 'Accept: application/json' -H 'Content-Type: application/json'
+curl -v -X 'GET'   'https://{Owner}.xpertsummit-es.com/v2/pet/findByStatus?status=A' -H 'Accept: application/json' -H 'Content-Type: application/json'
 ```
 
 6.4 Cross Site Script in URL
 
     "status" URL query parameter will carry a Command Injection attack. The expected result is a known signature violation.
 ```sh
-curl -v -X 'GET'   'https://{Owner}.xpertsummit-es.com/api/pet/findByStatus?status=<script>alert(123)</script>'  -H 'Accept: application/json' -H 'Content-Type: application/json'
+curl -v -X 'GET'   'https://{Owner}.xpertsummit-es.com/v2/pet/findByStatus?status=<script>alert(123)</script>'  -H 'Accept: application/json' -H 'Content-Type: application/json'
 ```
 
 6.5 Cross Site Script in Body
@@ -189,7 +189,7 @@ curl -v -X 'GET'   'https://{Owner}.xpertsummit-es.com/api/pet/findByStatus?stat
     "status" JSON body will carry an XSS attack. The expected result, the attack is being blocked by Machine Learning.
 
 ```sh
-curl -v -X 'POST' 'https://{Owner}.xpertsummit-es.com/api/pet' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{"id": 111, "category": {"id": 111, "name": "Camel"}, "name": "FortiCamel", "photoUrls": ["WillUpdateLater"], "tags": [ {"id": 111, "name": "FortiCamel"}], "status": "<script>alert(123)</script>"}'
+curl -v -X 'POST' 'https://{Owner}.xpertsummit-es.com/v2/pet' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{"id": 111, "category": {"id": 111, "name": "Camel"}, "name": "FortiCamel", "photoUrls": ["WillUpdateLater"], "tags": [ {"id": 111, "name": "FortiCamel"}], "status": "<script>alert(123)</script>"}'
 ```
 
 6.6 Zero Day Attacks
@@ -199,7 +199,7 @@ curl -v -X 'POST' 'https://{Owner}.xpertsummit-es.com/api/pet' -H 'accept: appli
     Cross Site Script in the Body
 
 ```sh
-curl -v -X 'POST' 'https://{Owner}.xpertsummit-es.com/api/pet' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{"id": 111, "category": {"id": 111, "name": "Camel"}, "name": "javascript:qxss(X160135492Y1_1Z);", "photoUrls": ["WillUpdateLater"], "tags": [ {"id": 111, "name": "FortiCamel"}], "status": "available”}'
+curl -v -X 'POST' 'https://{Owner}.xpertsummit-es.com/v2/pet' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{"id": 111, "category": {"id": 111, "name": "Camel"}, "name": "javascript:qxss(X160135492Y1_1Z);", "photoUrls": ["WillUpdateLater"], "tags": [ {"id": 111, "name": "FortiCamel"}], "status": "available”}'
 ```
 
 ## Support

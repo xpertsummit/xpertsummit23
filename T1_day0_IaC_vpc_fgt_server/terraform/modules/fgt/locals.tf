@@ -15,5 +15,5 @@ locals {
     ni => aws_network_interface.fgt_nis[idx].id
   }
   # Generate bastion route if bastion is pressent 
-  config_bastion_route = lookup(var.subnet_ids, "bastion", false) != false ? true : false
+  config_bastion_route =  true
 }
