@@ -90,8 +90,16 @@ provider "fortios" {
 ## 5. **Comprobación**
 
 * Comprobación de la creación de la nueva VIP y la política de seguridad asociada desde el fortigate. 
+
+![VIP policy](images/image5-1.png)
+
+![New VIP](images/image5-2.png)
+
 * Acceso web a la IP pública del fortigate por el puerto 80 y ver si se muestra la aplicación del servidor interno.
 
+**Nota: la aplicación se ha desplegado para que responda a una URL en concreto: http://{Owner}.xpertsummit-es.com, por eso es normal que al conectar direcatamente a través de la IP del servidor aparezca un error o se quede cargando. Si el servidor está accesible y responde todo funciona como se espera.**
+
+![API error](images/image5-3.png)
 
 ## Laboratorio completado
 
