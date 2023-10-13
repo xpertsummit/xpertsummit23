@@ -20,7 +20,7 @@ do
   echo -n "GET : ${URL} - HTTP status = "
   IPADDRESS=$(dd if=/dev/urandom bs=4 count=1 2>/dev/null | od -An -tu1 | sed -e 's/^ *//' -e 's/  */./g')
   curl  -k -H "X-Forwarded-For: ${IPADDRESS}" -A ML-Requester -s -o /dev/null -X 'GET' -w "%{http_code}" \
-  "${URL}/api/pet/findByStatus?status=available" \
+  "${URL}/v2/pet/findByStatus?status=available" \
   -H 'accept: application/json' \
   -H 'content-type: application/json'
   echo ""
@@ -28,7 +28,7 @@ do
   echo -n "GET : ${URL} - HTTP status = "
   IPADDRESS=$(dd if=/dev/urandom bs=4 count=1 2>/dev/null | od -An -tu1 | sed -e 's/^ *//' -e 's/  */./g')
   curl -k -H "X-Forwarded-For: ${IPADDRESS}" -A ML-Requester -s -o /dev/null -X 'GET' -w "%{http_code}" \
-  "${URL}/api/pet/findByStatus?status=pending" \
+  "${URL}/v2/pet/findByStatus?status=pending" \
   -H 'accept: application/json' \
   -H 'content-type: application/json'
   echo ""
@@ -36,7 +36,7 @@ do
   echo -n "GET : ${URL} - HTTP status = "
   IPADDRESS=$(dd if=/dev/urandom bs=4 count=1 2>/dev/null | od -An -tu1 | sed -e 's/^ *//' -e 's/  */./g')
   curl -k -H "X-Forwarded-For: ${IPADDRESS}" -A ML-Requester -s -o /dev/null -X 'GET' -w "%{http_code}" \
-  "${URL}/api/pet/findByStatus?status=sold" \
+  "${URL}/v2/pet/findByStatus?status=sold" \
   -H 'accept: application/json' \
   -H 'content-type: application/json'
   echo ""

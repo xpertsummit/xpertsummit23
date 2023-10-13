@@ -26,7 +26,7 @@ do
   IPADDRESS=$(dd if=/dev/urandom bs=4 count=1 2>/dev/null | od -An -tu1 | sed -e 's/^ *//' -e 's/  */./g')
   echo -n "POST : ${URL} - HTTP status = "
   curl -k -H "X-Forwarded-For: ${IPADDRESS}" -A ML-Requester -s -o /dev/null -w "%{http_code}" -X 'POST' \
-    "${URL}/api/pet" \
+    "${URL}/v2/pet" \
     -H 'accept: application/json' \
     -H 'Content-Type: application/json' \
   -d "{\

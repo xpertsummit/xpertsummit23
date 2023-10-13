@@ -18,6 +18,7 @@ module "student_fgt_config" {
 module "student_fgt" {
   source = "./modules/fgt"
 
+  prefix        = local.tags["Owner"]
   tags          = local.tags
   region        = local.region
   instance_type = local.fgt_instance_type
