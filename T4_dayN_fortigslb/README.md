@@ -5,7 +5,7 @@ El objetivo de este laboritorio es dar nociones sobre como desplegar una infraes
 
 Además, configurarás una nueva aplicación dentro del servicio de protección WAAP FortiWEB Cloud y realizarás pruebas de RedTeam contra la aplicación y verás como protegerla mediante Machine Learning.  
 
-Por último, configuraras nuestro servicio de Global Service Load Balancing (GSLB) mediante DNS, FortiGSLB, para que los usuarios de la aplicación accedan a la misma siempre a su región más cercana. 
+Por último, configurarás nuestro servicio de Global Service Load Balancing (GSLB) mediante DNS, FortiGSLB, para que los usuarios de la aplicación accedan a la misma siempre a su región más cercana. 
 
 El formato del laboratorio consiste en 4 entrenamiento diferenciados y para poder realizarlos encontrarás todos los detalles en la siguiente URL, donde deberás introducir el token facilitado.
 
@@ -63,13 +63,13 @@ En este entrenamiento realizaremos lo siguiente:
 
 - Los campos necesarios a completar son los siguientes:
 
-  * Name: `Owner` (Owner asignado para el laboratorio)
-  * Data Center: (el correspondiente a tu región)
-  * Address IPv4: (IP de management de tu fortigate, desplegado en lab T1) 
-  * Port: (puerto de gestión del fortigate)
-  * Type: `FortiGate`
-  * Sync Control: `Virtual Server`
-  * Auth Tokent: (api_key de tu fortigate, desplegado en lab T1)
+  1. Name: `Owner` (Owner asignado para el laboratorio)
+  2. Data Center: (escoge el correspondiente a tu región)
+  3. Address IPv4: (IP de **management** del fortigate desplegado en lab T1, consultar Terraform output) 
+  4. Port: `8443` (puerto de gestión del fortigate)
+  5. Type: `FortiGate`
+  6. Sync Control: `Virtual Server`
+  7. Auth Tokent: (api_key de tu fortigate, desplegado en lab T1, consultar Terraform output)
 
 
 ![image3-1-3.png](images/image3-1-3.png)
@@ -83,8 +83,8 @@ En este entrenamiento realizaremos lo siguiente:
 
 - Los datos que necesitamos completar son los siguientes:
 
-  * Name: `Owner`-server (Owner asignado para el laboratorio)
-  * IP Address: (IP pública de servicio tu fortigate, desplegado en lab T1)
+  1. Name: `Owner`-server (Owner asignado para el laboratorio)
+  2. IP Address: (IP **pública** del fortigate desplegado en lab T1, consultar Terraform output) 
 
 ![image3-2-2.png](images/image3-2-2.png)
 

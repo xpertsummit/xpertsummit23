@@ -5,7 +5,7 @@ El objetivo de este laboritorio es dar nociones sobre como desplegar una infraes
 
 Además, configurarás una nueva aplicación dentro del servicio de protección WAAP FortiWEB Cloud y realizarás pruebas de RedTeam contra la aplicación y verás como protegerla mediante Machine Learning.  
 
-Por último, configuraras nuestro servicio de Global Service Load Balancing (GSLB) mediante DNS, FortiGSLB, para que los usuarios de la aplicación accedan a la misma siempre a su región más cercana. 
+Por último, configurarás nuestro servicio de Global Service Load Balancing (GSLB) mediante DNS, FortiGSLB, para que los usuarios de la aplicación accedan a la misma siempre a su región más cercana. 
 
 El formato del laboratorio consiste en 4 entrenamiento diferenciados y para poder realizarlos encontrarás todos los detalles en la siguiente URL, donde deberás introducir el token facilitado.
 
@@ -99,7 +99,7 @@ cd xpertsummit23/T1_day0_IaC_vpc_fgt_server/terraform
     "az1" = "eu-west-1a" //update with your assigned AZ
   }
 
-  # UPDATE CIDR range with your assignation. (ex. VCP: 10.1.x.x group 1 - 10.1.1.0/24 user-1
+  # UPDATE CIDR range with your assignation. (ex. VCP: 10.1.x.x group 1 - 10.1.1.0/24 user-1)
   student_vpc_cidr = "10.10.10.0/24"
 
   # UPDATE HUB SDWAN public IP and external token
@@ -149,15 +149,15 @@ secret_key          = "<AWS Secret Key>"
   ```
 * Comprobar que se van a desplegar los recursos esperados en el plan.
 
-![Terraform output](./images/image6-0.png)
+![image6-0](./images/image6-0.png)
 
 * Confirmar despligue, type `yes`.
 
-![Terraform output](./images/image6-1.png)
+![image6-1](./images/image6-1.png)
 
 * Si todo funciona correctamente se generará una salida con el resumen del plan de despligue y las variables de output configuradas:
 
-![Terraform output](./images/image6-2.png)
+![image6-2](./images/image6-2.png)
 
 ## 7. **Comprobar conectividad** 
 
@@ -169,9 +169,9 @@ get router info routing-table bgp
 get router info bgp neighbors 10.10.20.1 ad
 get router info bgp neighbors 10.10.20.1 ro
 ```
-![diagnose routing](./images/image7-4-1.png)
+![image7-1-1](./images/image7-1-1.png)
 
-![diagnose routing](./images/image7-4-2.png)
+![image7-1-2](./images/image7-1-2.png)
 
 - Conexión local contra el servidor (ejecutar desde consola Fortigate)
 ```sh
@@ -179,8 +179,14 @@ execute ping 10.x.x.202
 execute telnet 10.x.x.202 80
 diagnose sniffer packet any '10.x.x.202' 4
 ```
+Nota: recuerda que la IP de tu servidor depende de tu rango CIDR asignado: 
+ej. 10.1.1.202 asignado al user 1 en la region west-1
+ej. 10.2.5.202 asignado al user 5 en la region west-2
 
-7.2 Comprobar que vuestro usuario ya aparece en la Leader Board
+7.2 Comprobar que vuestro usuario ya aparece en la Leader Board del portal
+
+![image7-2-1](./images/image7-2-1.png)
+
 
 ## Laboratorio completado
 Pasar a lab 2: [T2_dayN_fgt_terraform](https://github.com/xpertsummit/xpertsummit23/tree/main/T2_dayN_fgt_terraform)

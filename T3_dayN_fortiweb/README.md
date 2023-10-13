@@ -5,7 +5,7 @@ El objetivo de este laboritorio es dar nociones sobre como desplegar una infraes
 
 Además, configurarás una nueva aplicación dentro del servicio de protección WAAP FortiWEB Cloud y realizarás pruebas de RedTeam contra la aplicación y verás como protegerla mediante Machine Learning.  
 
-Por último, configuraras nuestro servicio de Global Service Load Balancing (GSLB) mediante DNS, FortiGSLB, para que los usuarios de la aplicación accedan a la misma siempre a su región más cercana. 
+Por último, configurarás nuestro servicio de Global Service Load Balancing (GSLB) mediante DNS, FortiGSLB, para que los usuarios de la aplicación accedan a la misma siempre a su región más cercana. 
 
 El formato del laboratorio consiste en 4 entrenamiento diferenciados y para poder realizarlos encontrarás todos los detalles en la siguiente URL, donde deberás introducir el token facilitado.
 
@@ -37,13 +37,13 @@ En este laboratorio realizaremos lo siguiente:
 
 ![image1-1.png](images/image1-1.png)
 
-- Con esas credenciales acceder al servicio SaaS de FortiGSLB en la url [FortiWEB Cloud](https://www.fortiweb-cloud.com/)
+- Con esas credenciales acceder al servicio SaaS de FortiGSLB en la url [FortiWEB Cloud](http://www.fortiweb-cloud.com/)
 
 ![image1-2.png](images/image1-2.png)
 
 
 ## 2. Creación de una nueva aplicación
-- La creación de una nueva aplicación en FortiWEB Cloud es bastante sencilla. En este laboratorio realizaremos el alta via GUI en el portal, pero se puede automatizar realizando peticiones a la API del servicio. [FortiWEB Cloud API reference](https://www.fortiweb-cloud.com/apidoc/api.html)
+- La creación de una nueva aplicación en FortiWEB Cloud es bastante sencilla. En este laboratorio realizaremos el alta via GUI en el portal, pero se puede automatizar realizando peticiones a la API del servicio. [FortiWEB Cloud API reference](http://www.fortiweb-cloud.com/apidoc/api.html)
 - En el menú de la izquierda seleccionaremos `Global > Applications`
 
 ![image2-1.png](images/image2-1.png)
@@ -176,12 +176,12 @@ Por defecto, el esquema aprendido deja la protección en standby, de forma que l
 ## 6. ReadTeam
 En este apartado vamos a comprobar, como de forma automática, FortiWEB Cloud puede proteger las llamadas a la API, en función a lo aprendido en los patrones de tráfico y al esquema Swagger que ha definido. 
 
-En el punto 5.3, se ha modificado el comportamiento de protección frente a llamadas que no cumplan con el esquema. (Comprobar este punto para esperar un comportamiento u otro en los siguientes test)
+En el punto 5.3, se ha modificado el comportamiento de protección frente a llamadas que no cumplan con el esquema. Comprobar este punto para esperar un comportamiento u otro en los siguientes test.
 
 6.1 Query Parameter Violation
 
 ```sh
-curl -v -X 'GET' 'https://{Owner}.xpertsummit-es.com/v2/pet/findByStatus?' -H 'Accept: application/json' -H 'Content-Type: application/json'
+curl -v -X 'GET' 'http://{Owner}.xpertsummit-es.com/api/pet/findByStatus?' -H 'Accept: application/json' -H 'Content-Type: application/json'
 ```
 
     "status" JSON parameter is missing in the JSON request and is blocked by FortiWeb-Cloud. The expected result is a Request query validation failed status.
@@ -192,7 +192,7 @@ curl -v -X 'GET' 'https://{Owner}.xpertsummit-es.com/v2/pet/findByStatus?' -H 'A
     "status" URL query parameter is too long. The expected result, JSON parameter length violation.
 
 ```sh
-curl -v -X 'GET'   'https://{Owner}.xpertsummit-es.com/v2/pet/findByStatus?status=ABCDEFGHIJKL' -H 'Accept: application/json' -H 'Content-Type: application/json'
+curl -v -X 'GET' 'http://{Owner}.xpertsummit-es.com/api/pet/findByStatus?status=ABCDEFGHIJKL' -H 'Accept: application/json' -H 'Content-Type: application/json'
 ```
 
 6.3 URL Query Parameter Short
@@ -200,14 +200,14 @@ curl -v -X 'GET'   'https://{Owner}.xpertsummit-es.com/v2/pet/findByStatus?statu
     "status" URL query parameter is too short. The expected result is a parameter violation.
 
 ```sh
-curl -v -X 'GET'   'https://{Owner}.xpertsummit-es.com/v2/pet/findByStatus?status=A' -H 'Accept: application/json' -H 'Content-Type: application/json'
+curl -v -X 'GET' 'http://{Owner}.xpertsummit-es.com/api/pet/findByStatus?status=A' -H 'Accept: application/json' -H 'Content-Type: application/json'
 ```
 
 6.4 Cross Site Script in URL
 
     "status" URL query parameter will carry a Command Injection attack. The expected result is a known signature violation.
 ```sh
-curl -v -X 'GET'   'https://{Owner}.xpertsummit-es.com/v2/pet/findByStatus?status=<script>alert(123)</script>'  -H 'Accept: application/json' -H 'Content-Type: application/json'
+curl -v -X 'GET' 'http://{Owner}.xpertsummit-es.com/api/pet/findByStatus?status=<script>alert(123)</script>'  -H 'Accept: application/json' -H 'Content-Type: application/json'
 ```
 
 6.5 Cross Site Script in Body
@@ -215,7 +215,7 @@ curl -v -X 'GET'   'https://{Owner}.xpertsummit-es.com/v2/pet/findByStatus?statu
     "status" JSON body will carry an XSS attack. The expected result, the attack is being blocked by Machine Learning.
 
 ```sh
-curl -v -X 'POST' 'https://{Owner}.xpertsummit-es.com/v2/pet' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{"id": 111, "category": {"id": 111, "name": "Camel"}, "name": "FortiCamel", "photoUrls": ["WillUpdateLater"], "tags": [ {"id": 111, "name": "FortiCamel"}], "status": "<script>alert(123)</script>"}'
+curl -v -X 'POST' 'http://{Owner}.xpertsummit-es.com/api/pet' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{"id": 111, "category": {"id": 111, "name": "Camel"}, "name": "FortiCamel", "photoUrls": ["WillUpdateLater"], "tags": [ {"id": 111, "name": "FortiCamel"}], "status": "<script>alert(123)</script>"}'
 ```
 
 6.6 Zero Day Attacks
@@ -225,17 +225,17 @@ curl -v -X 'POST' 'https://{Owner}.xpertsummit-es.com/v2/pet' -H 'accept: applic
     Cross Site Script in the Body
 
 ```sh
-curl -v -X 'POST' 'https://{Owner}.xpertsummit-es.com/v2/pet' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{"id": 111, "category": {"id": 111, "name": "Camel"}, "name": "javascript:qxss(X160135492Y1_1Z);", "photoUrls": ["WillUpdateLater"], "tags": [ {"id": 111, "name": "FortiCamel"}], "status": "available”}'
+curl -v -X 'POST' 'http://{Owner}.xpertsummit-es.com/api/pet' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{"id": 111, "category": {"id": 111, "name": "Camel"}, "name": "javascript:qxss(X160135492Y1_1Z);", "photoUrls": ["WillUpdateLater"], "tags": [ {"id": 111, "name": "FortiCamel"}], "status": "available”}'
 ```
 
 ## Laboratorio completado
 
-Pasar a lab 4: [T4_dayN_fortigslb](https://github.com/xpertsummit/xpertsummit23/tree/main/T2_dayN_fgt_fortigslb)
+Pasar a lab 4: [T4_dayN_fortigslb](http://github.com/xpertsummit/xpertsummit23/tree/main/T2_dayN_fortigslb)
 
 ## Support
 This a personal repository with goal of testing and demo Fortinet solutions on the Cloud. No support is provided and must be used by your own responsability. Cloud Providers will charge for this deployments, please take it in count before proceed.
 
 ## License
-Based on Fortinet repositories with original [License](https://github.com/fortinet/fortigate-terraform-deploy/blob/master/LICENSE) © Fortinet Technologies. All rights reserved.
+Based on Fortinet repositories with original [License](http://github.com/fortinet/fortigate-terraform-deploy/blob/master/LICENSE) © Fortinet Technologies. All rights reserved.
 
 
