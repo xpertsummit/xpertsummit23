@@ -35,7 +35,7 @@ if [ -z "$RECORD_VALUE" ]; then
 fi
 
 # Install jq
-sudo yum install -y jq
+sudo yum install -y jq > /dev/null 
 
 # Get user ARN
 caller_identity=$(aws sts get-caller-identity)
