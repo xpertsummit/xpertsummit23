@@ -52,6 +52,7 @@ locals {
   srv_instance_type    = "t3.small"
   docker_image         = "swaggerapi/petstore"
   docker_port_internal = "8080"
+  lab_dns_name         = "xpertsummit-es.com"
 }
 
 #--------------------------------------------------------------------------
