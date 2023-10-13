@@ -49,6 +49,9 @@ cd T2_dayN_fgt_terraform/terraform
 - Los datos de IP pública de management del fortigate y el puerto de gestión se recogen del anterior laboratorio, así como el API token.
 - Dado que las variables necesarias ya las tenemos del anterior laboratorio NO es necesario configurar ninguna de ellas. Revisar `main.tf` para profundizar.
 
+<details><summary>main.tf</summary>
+<p>
+
 ```sh
 # File main.tf
 locals {
@@ -63,6 +66,8 @@ provider "fortios" {
   insecure = "true"
 }
 ```
+</p>
+</details>
 
 ## 4. **Despliegue** 
 

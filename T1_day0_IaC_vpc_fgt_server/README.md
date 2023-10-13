@@ -37,19 +37,19 @@ En este laboratorio se desplegarán los siguientes recursos:
 ## Pasos a seguir:
 
 ## 1. Conexión al entorno de desarrollo Cloud9
-Desde el [portal formación](http://xs23.xpertsummit-es.com) podeis encontrar el acceso a vuestro entorno Cloud9.
+Desde el [portal formación](http://xs23.xpertsummit-es.com) puedes encontrar el detalle para acceder a tu IDE AWS Cloud9.
 
 1.1 Obtener los datos de cada usuario:
-- Desde el portal de formación introducir el email de registro al curso.
+- Desde el portal de formación introduce el email de registro al curso.
 - Apareceran los datos asociados para usar durante el laboratorio.
-- Acceder a la URL del portal Cloud9 que aparece con los datos de: `account_id`,  `user` y `password`. 
+- Acceder a la URL del portal Cloud9 que aparece con los datos de: `AWS Account ID`,  `IAM user` y `Password`. 
 
 ![Student data](./images/image1-1-1.png)
 
 - Ejemplo:
   - URL acceso: https://eu-central-1.console.aws.amazon.com/cloud9/ide/d77xxxxx
-  - accountid: xxxxxx
-  - User: xs22-eu-west-1-user-1
+  - AWS Account ID: xxxxxx
+  - IAM user name: xs22-eu-west-1-user-1
   - Password: xxxxx
 
 ![Portal de acceso AWS](./images/image1-1-2.png)
@@ -58,7 +58,7 @@ Desde el [portal formación](http://xs23.xpertsummit-es.com) podeis encontrar el
 
 
 ## 2. Clonar repositorio desde GitHub
-- Abrir una nueva consola terminal o usar la actual
+- Abrir una nueva consola terminal o usar la actual.
 - Desde el terminal ejecutar el siguiente comando: 
 ```
 git clone https://github.com/xpertsummit/xpertsummit23.git
@@ -185,7 +185,7 @@ ej. 10.2.5.202 asignado al user 5 en la region west-2
 
 7.2 Comprobar que vuestro usuario ya aparece en la Leader Board del portal
 
-![image7-2-1](./images/image7-2-1.png)
+![Leader Board](./images/image7-2-1.png)
 
 
 ## Laboratorio completado
