@@ -14,10 +14,17 @@ resource "aws_network_interface" "student_server" {
 resource "aws_eip" "student_server" {
   domain            = "vpc"
   network_interface = aws_network_interface.student_server.id
-  
+
   tags = local.tags
 }
 # Deploy cluster master node
+#
+# - tags          : tags asigned to resources
+# - keypair       : key-pairs generated in this code
+# - instance_type : type of AWS instance 
+# - user_data     : cloud-init script to load at boot created with data template
+# - ni_id         : network interface created in this code 
+#
 module "student_server" {
   depends_on = [module.student_fgt]
   source     = "./modules/new-instance_ni"
@@ -38,6 +45,6 @@ data "template_file" "student_server_user_data" {
     docker_image         = local.docker_image
     docker_port_internal = local.docker_port_internal
     docker_port_external = "80"
-    docker_env           = "-e SWAGGER_HOST=http://${module.student_fgt.fgt_eip_public} -e SWAGGER_BASE_PATH=/v2 -e SWAGGER_URL=http://${module.student_fgt.fgt_eip_publicp}"
+    docker_env           = "-e SWAGGER_HOST=http://${module.student_fgt.fgt_eip_public} -e SWAGGER_BASE_PATH=/v2 -e SWAGGER_URL=http://${module.student_fgt.fgt_eip_public}"
   }
 }

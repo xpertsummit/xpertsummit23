@@ -60,9 +60,11 @@ En este laboratorio realizaremos lo siguiente:
 
 - Wizard step 2: Protocolo, puertos e IP origen del servidor
     * services allowed: HTTP
-    * IP Address or FQDN: (IP pública de servicio Fortigate, recordad que existe una VIP para publicar el servicio)
+    * IP Address or FQDN: (IP pública de servicio Fortigate, en el lab T2 hemos creado una VIP para publicar el servicio)
     * Port: 80
     * Test Server: (comprobar conexión al servidor usando HTTP)
+
+Nota: puedes obtener la IP pública de servicio del Fortigate en las salidas de Terraform del lab T1 y T2 o desde la propia consola de AWS
 
 ![image2-4.png](images/image2-4.png)
 
@@ -78,8 +80,10 @@ En este laboratorio realizaremos lo siguiente:
 ![image2-6.png](images/image2-6.png)
 
 - Completado: 
-    * El resultado es el nuevo CNAME de nuestra applicación para acceder desde FortiWEB Cloud y poder actualizar nuestros servidores DNS.
+    * El resultado es un nuevo FQDN de nuestra applicación para acceder a través de FortiWEB Cloud y poder actualizar nuestros servidores DNS.
     * Desde el nuevo fqdn podremos acceder a nuestra aplicación a través de FortiWEB Cloud.
+
+Nota: copiar en el nuevo FQDN para utilizar en el punto 4.
 
 ![image2-7.png](images/image2-7.png)
 
@@ -90,9 +94,13 @@ En este laboratorio realizaremos lo siguiente:
 FortiWEB Cloud despliega instancias cercanas a la aplicación de manera automática, siendo los principales Datacenters AWS, Azure, GCP y OCI. 
 
 ## 4. Creación de nuevo CNAME
-Para que resulte más sencillo acceder a la nueva aplicación desplegada en FortiWEB Cloud, vamos a generar un nuevo CNAME en nuestro DNS más sencillo resolviendo al FQDN proporciando por FortiWEB Cloud al crear la misma. 
+Para que resulte más sencillo acceder a la nueva aplicación a través de FortiWEB Cloud, vamos a añadir un nuevo CNAME en el DNS, que resuelva al FQDN proporciando por FortiWEB Cloud para nuestra aplicación. 
 
-- Ir la carpeta de scripts: 
+En el punto 3 anterior step 4, obteniamos el FQDN de la aplicación, también podemos consultarlo entrando en la aplicación y en el menú de la izquierda `Network > Endpoint`
+
+![image4-1.png](images/image4-1.png)
+
+- Para la creación del nuevo CNAME accederemos via CLI a la carpeta de scripts del laboratorio: 
 ```sh
 cd scripts
 ```
@@ -100,7 +108,7 @@ cd scripts
 ```sh
 chmod +x dns_student_cname.sh
 ```
-- Ejecutar el script y proporcionar los siguientes parámetros cuando los solicite:
+- Ejecutar el script y proporcionar los siguientes parámetros cuando los solicite (Token de laboratorio y FortiWEB FQDN):
 ```sh
 ./dns_student_cname.sh
 Introduce el token del laboratorio: <lab_token>
@@ -111,26 +119,33 @@ Introduce el FQDN de FortiWEB Cloud: <FQDN_fortiwebcloud_applicacion>
 Nueva URL de acceso: http://{Owner}.xpertsummit-es.com
 
 ## 5. Training the ML model
-El template de seguridad aplicado, lleva activado la protección de APIs mediante Machine Learning. Para que el modelo pueda aprender el patron de tráfico de la aplicación, vamos a forzar cierto tráfico mediante un par de script. 
+El template de seguridad aplicado, lleva activado la protección de APIs mediante Machine Learning. Para que el modelo pueda aprender el patron de tráfico de la aplicación, vamos a forzar cierto tráfico mediante un par de script. Para revisar el template podeis hacerlo desde el menú de la izquierda `GLOBAL > templates`
+
+![image5-1.png](images/image5-1.png)
+
+Seleccionar el template `xpertsummit23` y revisar los profile de seguridad aplicados en el menú de la izquierda, en este caso el que aplica a este punto es el de `API PROTECTION > ML Based API Protection`
 
 5.1 Lanzar los scripts de entrenamiento y aprendizaje
 
-- Ir la carpeta de scripts: 
+- Acceder via CLI a la carpeta de scripts del laboratorio: 
 ```sh
 cd scripts
 ```
-- Añadir permisos de ejecución al script:
+- Añadir permisos de ejecución a los scripts a ejecutar: 
 ```sh
 chmod +x fwb_training_get.sh
 chmod +x fwb_training_post.sh
 ```
-- Ejecutar los scripts (para que funcione correctamente se debe completar el paso 4)
+- Ejecutar los scripts (para que funcione correctamente debe estar completado el paso 4)
 ```sh
 ./fwb_training_get.sh
 ```
+![image5-1-1.png](images/image5-1-1.png)
+
 ```sh
 ./fwb_training_post.sh
 ```
+![image5-1-2.png](images/image5-1-2.png)
 
 5.2 Comprobación de los patrones aprendidos
 

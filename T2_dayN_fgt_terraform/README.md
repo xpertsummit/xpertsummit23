@@ -47,7 +47,7 @@ cd T2_dayN_fgt_terraform/terraform
 - En ete laboratorio NO son necesarias Las credendiales progrmáticas ACCESS_KEY y SECRET_KEY, ya que el provider a usar es fortios, revisar fichero `provider.tf`
 - En este laboratorio NO es necesario el fichero `terraform.tfvars` dado que las variables sensibles se cargan del anterior laboratorio.
 - Los datos de IP pública de management del fortigate y el puerto de gestión se recogen del anterior laboratorio, así como el API token.
-- Dado que las variables necesarias ya las tenemos del anterior laboratorio no es necesario configurar ninguna de ellas. Revisar `main.tf` para profundizar.
+- Dado que las variables necesarias ya las tenemos del anterior laboratorio NO es necesario configurar ninguna de ellas. Revisar `main.tf` para profundizar.
 
 ```sh
 # File main.tf

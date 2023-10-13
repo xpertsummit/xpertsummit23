@@ -106,7 +106,7 @@ cd xpertsummit23/T1_day0_IaC_vpc_fgt_server/terraform
   hub_fgt_pip      = "34.35.36.37"        //update with data showed in lab web
   externalid_token = "lab_token_provided" //update with lab token (this will be the VPN PSK)
 ```
-(Recuerda guardar el fichero con los cambios realizados)
+**Recuerda guardar el fichero con los cambios realizados**
 
 Nota: los rangos cidr están repartidos para cada participante y no se solpan, para lo que se ha seguido la siguiente nomenclatura:
 

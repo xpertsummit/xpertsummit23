@@ -17,7 +17,7 @@ resource "fortios_firewall_vip" "app_vip" {
 }
 # Define a new firewall policy with default intrusion prevention profile
 resource "fortios_firewall_policy" "app_policy" {
-  depends_on = [fortios_firewall_vip.aws_app_vip]
+  depends_on = [fortios_firewall_vip.app_vip]
 
   name = "vip-${local.student_fgt["private_ip"]}-${local.student_server["app_port"]}"
 

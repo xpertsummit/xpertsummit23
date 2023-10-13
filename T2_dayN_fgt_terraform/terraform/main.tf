@@ -6,7 +6,7 @@
 data "terraform_remote_state" "T1_day0" {
   backend = "local"
   config = {
-    path = "../T1_day0_IaC_vpc_fgt_server/terraform/terraform.tfstate"
+    path = "../../T1_day0_IaC_vpc_fgt_server/terraform/terraform.tfstate"
   }
 }
 # Locals data from T1_day0

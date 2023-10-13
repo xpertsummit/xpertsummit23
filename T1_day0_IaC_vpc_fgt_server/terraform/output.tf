@@ -17,5 +17,6 @@ output "student_server" {
     private_ip = module.student_server.vm["private_ip"]
     public_ip  = module.student_server.vm["public_ip"]
     portal_uri = "http://${module.student_server.vm["public_ip"]}"
+    app_port   = "80"
   }
 }

@@ -58,7 +58,7 @@ locals {
 # Write AWS CLI credentials in Cloud9 instance
 #--------------------------------------------------------------------------
 resource "local_file" "aws_cli_credentials" {
-  content = <<-EOT
+  content         = <<-EOT
     [default]
     aws_access_key_id = ${var.access_key}
     aws_secret_access_key = ${var.secret_key}
