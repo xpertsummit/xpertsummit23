@@ -149,17 +149,43 @@ chmod +x fwb_training_post.sh
 
 5.2 Comprobación de los patrones aprendidos
 
-- Iremos a la sección API colection de la aplicación
-- Ir a API View
+- Iremos a la sección API colection de la aplicación, en el menú de la izquierda `API PROTECTION > ML Based API Protection`
+
+![image5-2-1.png](images/image5-2-1.png)
+
+- Cuando haya pasado un tiempo entre 5-10 minutos, desde que se hayan lanzado los scripts de entrenamiento, se presentarán los patrones de tráfico aprendidos por el modelo. 
+
+![image5-2-2.png](images/image5-2-2.png)
+
+- Se puede consultar el esquema API aprendido, incluso lo podemos descargar si fuera necesario, cambiando la vista a `API View` en la parte de la derecha. 
+
+![image5-2-3.png](images/image5-2-3.png)
+
+5.3 Aplicar bloqueo en las llamadas que no cumplan con el esquema
+
+Por defecto, el esquema aprendido deja la protección en standby, de forma que las peticiones que no cumplan con dicho esquema, no son bloqueadas ni alertadas. Podemos cambiar este comportamiento en `Schema Protection`.
+
+- Dentro de `API Collection`, donde aparecen los modelos aprendidos de API Paths, podemos dar a editar el comportamiento de protección, dandole al boton de editar que aparece a la derecha en la columna Action. 
+
+![image5-3-1.png](images/image5-3-1.png)
+
+- Dentro de la customización del API Path aprendido, entre otras cosas podemos modificar el comportamiento de protección, seleccionandolo en el desplegable de arriba a la derecha. 
+
+![image5-3-2.png](images/image5-3-2.png)
 
 ## 6. ReadTeam
+En este apartado vamos a comprobar, como de forma automática, FortiWEB Cloud puede proteger las llamadas a la API, en función a lo aprendido en los patrones de tráfico y al esquema Swagger que ha definido. 
+
+En el punto 5.3, se ha modificado el comportamiento de protección frente a llamadas que no cumplan con el esquema. (Comprobar este punto para esperar un comportamiento u otro en los siguientes test)
 
 6.1 Query Parameter Violation
 
-    "status" JSON parameter is missing in the JSON request and is blocked by FortiWeb-Cloud. The expected result is a Request query validation failed status.
 ```sh
 curl -v -X 'GET' 'https://{Owner}.xpertsummit-es.com/v2/pet/findByStatus?' -H 'Accept: application/json' -H 'Content-Type: application/json'
 ```
+
+    "status" JSON parameter is missing in the JSON request and is blocked by FortiWeb-Cloud. The expected result is a Request query validation failed status.
+
 
 6.2 URL Query Parameter Long
 
@@ -201,6 +227,10 @@ curl -v -X 'POST' 'https://{Owner}.xpertsummit-es.com/v2/pet' -H 'accept: applic
 ```sh
 curl -v -X 'POST' 'https://{Owner}.xpertsummit-es.com/v2/pet' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{"id": 111, "category": {"id": 111, "name": "Camel"}, "name": "javascript:qxss(X160135492Y1_1Z);", "photoUrls": ["WillUpdateLater"], "tags": [ {"id": 111, "name": "FortiCamel"}], "status": "available”}'
 ```
+
+## Laboratorio completado
+
+Pasar a lab 4: [T4_dayN_fortigslb](https://github.com/xpertsummit/xpertsummit23/tree/main/T2_dayN_fgt_fortigslb)
 
 ## Support
 This a personal repository with goal of testing and demo Fortinet solutions on the Cloud. No support is provided and must be used by your own responsability. Cloud Providers will charge for this deployments, please take it in count before proceed.

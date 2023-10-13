@@ -105,6 +105,9 @@ cd xpertsummit23/T1_day0_IaC_vpc_fgt_server/terraform
   # UPDATE HUB SDWAN public IP and external token
   hub_fgt_pip      = "34.35.36.37"        //update with data showed in lab web
   externalid_token = "lab_token_provided" //update with lab token (this will be the VPN PSK)
+
+  # AWS account_id
+  account_id = "042579xxxxx"
 ```
 **Recuerda guardar el fichero con los cambios realizados**
 
@@ -123,7 +126,6 @@ Nota: los rangos cidr están repartidos para cada participante y no se solpan, p
 ```
 access_key          = "<AWS Access Key>"
 secret_key          = "<AWS Secret Key>"
-externalid_token    = "<ExternalID token>"
 ```
 - Las variables deben quedar configuradas con el siguiente patrón: access_key="AZXSxxxxxx"
 - Cambiar el nombre al fichero `terraform.tfvars.example` a `terraform.tfvars`
