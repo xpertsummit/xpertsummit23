@@ -176,6 +176,8 @@ Por defecto, el esquema aprendido deja la protección en standby, de forma que l
 ## 6. ReadTeam
 En este apartado vamos a comprobar, como de forma automática, FortiWEB Cloud puede proteger las llamadas a la API, en función a lo aprendido en los patrones de tráfico y al esquema Swagger que ha definido. 
 
+**Nota: si el servicio todavía no ha publicado los esquemas de la API aprendidos con el entrenamiento, puedes pasar directamente al [Lab T4](http://github.com/xpertsummit/xpertsummit23/tree/main/T2_dayN_fortigslb) y luego volver a este punto**
+
 En el punto 5.3, se ha modificado el comportamiento de protección frente a llamadas que no cumplan con el esquema. Comprobar este punto para esperar un comportamiento u otro en los siguientes test.
 
 6.1 Query Parameter Violation
