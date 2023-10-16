@@ -61,7 +61,7 @@ data "template_file" "fgt_active_sdwan-config" {
     network_id        = var.hubs[count.index]["network_id"]
     ike_version       = var.hubs[count.index]["ike_version"]
     dpd_retryinterval = var.hubs[count.index]["dpd_retryinterval"]
-    local_id          = "${var.spoke["id"]}-1"
+    local_id          = "${var.spoke["id"]}"
     local_bgp_asn     = var.spoke["bgp-asn"]
     local_router_id   = local.fgt_ni_ips["mgmt"]
     local_network     = var.spoke["cidr"]
