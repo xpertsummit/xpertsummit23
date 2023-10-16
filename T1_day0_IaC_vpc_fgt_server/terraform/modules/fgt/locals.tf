@@ -14,6 +14,4 @@ locals {
     for idx, ni in var.fgt_ni_index :
     ni => aws_network_interface.fgt_nis[idx].id
   }
-  # Generate bastion route if bastion is pressent 
-  config_bastion_route =  true
 }
