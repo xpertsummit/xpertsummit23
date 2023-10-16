@@ -177,7 +177,7 @@ get router info bgp neighbors 10.10.20.1 ro
 ```sh
 execute ping 10.x.x.202
 execute telnet 10.x.x.202 80
-diagnose sniffer packet any '10.x.x.202' 4
+diagnose sniffer packet any 'host 10.x.x.202' 4
 ```
 Nota: recuerda que la IP de tu servidor depende de tu rango CIDR asignado: 
 ej. 10.1.1.202 asignado al user 1 en la region west-1
