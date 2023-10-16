@@ -1,10 +1,8 @@
-/*
 # Create the IAM role/profile for the API Call
 resource "aws_iam_instance_profile" "fgt-apicall-profile" {
   name = "${var.prefix}-fgt-apicall-profile"
   role = aws_iam_role.fgt-apicall-role.name
 }
-*/
 
 resource "aws_iam_role" "fgt-apicall-role" {
   name = "${var.prefix}-fgt-apicall-role"
