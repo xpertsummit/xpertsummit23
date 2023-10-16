@@ -161,7 +161,11 @@ secret_key          = "<AWS Secret Key>"
 
 ![image6-2](./images/image6-2.png)
 
-## 7. **Comprobar conectividad** 
+## 7. **Comprobar conectividad**
+
+7.0 ¿Cómo acceder al Fortigate?
+- En el output del despligue del terraform puedes encontrar la URL para acceder al mismo. (https://<ip_management>:8443) 
+- Al acceder solicitará resetear la contraseña. La contraseña inicial es el ID de la instancia EC2 del fortigate, que puedes consultar desde la consola de AWS o en el output del terraform. 
 
 7.1 Comprobación de conectividad a HUB y con servidor local
 - Comprobación de la correcta conexión al HUB
@@ -188,6 +192,11 @@ ej. 10.2.5.202 asignado al user 5 en la region west-2
 7.2 Comprobar que vuestro usuario ya aparece en la Leader Board del portal
 
 ![Leader Board](./images/image7-2-1.png)
+
+7.3 Actividad extra
+
+- Conforme el resto de compañeros vayan desplegando sus Fortigates, se irán uniendo la red SDWAN, por lo que vuestro spoke irá aprendiendo nuevas rutas contra las redes que anuncian. (Red iBGP con HUB haciendo de Route Reflector)
+- Comprobar la conectividad mediante ADVPN a las redes de los compañeros. Pregunta a algún compañero la IP de sus servidor interno e intenta hacer ping desde el Fortigate. 
 
 
 ## Laboratorio completado
