@@ -74,7 +74,7 @@ Nota: puedes obtener la IP pública de servicio del Fortigate en las salidas de 
 ![image2-5.png](images/image2-5.png)
 
 - Wizard step 4: Habilitar modo bloqueo y template
-    * Enable Block mode: (le dajamos en detección OFF)
+    * Enable Block mode: ON (habilitamos la protección)
     * Template: `xpertsummit23` (selecionamos este template en el desplegable)
 
 ![image2-6.png](images/image2-6.png)
@@ -96,12 +96,13 @@ FortiWEB Cloud despliega instancias cercanas a la aplicación de manera automát
 ## 4. Creación de nuevo CNAME
 Para que resulte más sencillo acceder a la nueva aplicación a través de FortiWEB Cloud, vamos a añadir un nuevo CNAME en el DNS, que resuelva al FQDN proporciando por FortiWEB Cloud para nuestra aplicación. 
 
-En el punto 3 anterior step 4, obteniamos el FQDN de la aplicación, también podemos consultarlo entrando en la aplicación y en el menú de la izquierda `Network > Endpoint`
+En el punto 3 anterior step 4, obteniamos el FQDN de la aplicación, sino lo has llegado a copiar, puedes consultarlo entrando a la aplicación y en el menú de la izquierda `Network > Endpoint`
 
 ![image4-1.png](images/image4-1.png)
 
 - Para la creación del nuevo CNAME accederemos via CLI a la carpeta de scripts del laboratorio: 
 ```sh
+cd T3_dayN_fortiweb 
 cd scripts
 ```
 - Añadir permisos de ejecución al script:
@@ -176,7 +177,7 @@ Por defecto, el esquema aprendido deja la protección en standby, de forma que l
 ## 6. ReadTeam
 En este apartado vamos a comprobar, como de forma automática, FortiWEB Cloud puede proteger las llamadas a la API, en función a lo aprendido en los patrones de tráfico y al esquema Swagger que ha definido. 
 
-**Nota: si el servicio todavía no ha publicado los esquemas de la API aprendidos con el entrenamiento, puedes pasar directamente al [Lab T4](http://github.com/xpertsummit/xpertsummit23/tree/main/T2_dayN_fortigslb) y luego volver a este punto**
+**Nota: si el servicio todavía no ha publicado los esquemas de la API aprendidos con el entrenamiento, puedes pasar directamente al [Lab T4](http://github.com/xpertsummit/xpertsummit23/tree/main/T4_dayN_fortigslb) y luego volver a este punto**
 
 En el punto 5.3, se ha modificado el comportamiento de protección frente a llamadas que no cumplan con el esquema. Comprobar este punto para esperar un comportamiento u otro en los siguientes test.
 
@@ -232,7 +233,7 @@ curl -v -X 'POST' 'http://{Owner}.xpertsummit-es.com/api/pet' -H 'accept: applic
 
 ## Laboratorio completado
 
-Pasar a lab 4: [T4_dayN_fortigslb](http://github.com/xpertsummit/xpertsummit23/tree/main/T2_dayN_fortigslb)
+Pasar a lab 4: [T4_dayN_fortigslb](http://github.com/xpertsummit/xpertsummit23/tree/main/T4_dayN_fortigslb)
 
 ## Support
 This a personal repository with goal of testing and demo Fortinet solutions on the Cloud. No support is provided and must be used by your own responsability. Cloud Providers will charge for this deployments, please take it in count before proceed.

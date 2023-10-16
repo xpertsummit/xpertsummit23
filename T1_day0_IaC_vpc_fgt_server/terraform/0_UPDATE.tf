@@ -19,8 +19,10 @@ locals {
   # CIDR range to use for your VCP: 10.1.x.x group 1 - 10.1.1.0/24 user-1
   student_vpc_cidr = "10.10.10.0/24"
 
-  # HUB SDWAN fortigate details
+  # HUB SDWAN fortigate public IP
   hub_fgt_pip      = "34.35.36.37"        //update with data showed in lab web
+
+  # Lab token
   externalid_token = "lab_token_provided" //update with lab token (this will be the VPN PSK)
 
   # AWS account_id

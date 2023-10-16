@@ -36,7 +36,7 @@ En este laboratorio realizaremos lo siguiente:
 ## 1. Conexión al entorno de desarrollo Cloud9
 - (Revisar pasos laboratorio T1)
 
-## 2.  Acceder a la carpeta T4_dayN_fgt-terraform
+## 2.  Acceder a la carpeta T2_dayN_fgt-terraform
 - Abrir un nuevo terminal y entrar en la carpeta del laboratorio
 ```
 cd T2_dayN_fgt_terraform/terraform
@@ -103,7 +103,7 @@ provider "fortios" {
 
 ## Laboratorio completado
 
-Pasar a lab 3: [T2_dayN_fortiweb](https://github.com/xpertsummit/xpertsummit23/tree/main/T2_dayN_fgt_fortiweb)
+Pasar a lab 3: [T3_dayN_fortiweb](https://github.com/xpertsummit/xpertsummit23/tree/main/T3_dayN_fortiweb)
 
 ## Support
 This a personal repository with goal of testing and demo Fortinet solutions on the Cloud. No support is provided and must be used by your own responsability. Cloud Providers will charge for this deployments, please take it in count before proceed.
