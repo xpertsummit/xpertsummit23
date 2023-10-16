@@ -1,31 +1,31 @@
 # Xpert Summit 2023
 # NetDevOps, protección avanzada API y disponibilidad global
 ## Objetivo del laboratorio
-El objetivo de este laboritorio es dar nociones sobre como desplegar una infraestructura relativamente compleja de hub y spoke en AWS. Además de dar idea de cómo poder operar un firewall Fortigate a través de su API. Durante el laboratio te familizaras con el entorno Terraform y como lanzar y customizar los despligues. 
+El objetivo de este laboratorio es dar nociones sobre cómo desplegar una infraestructura relativamente compleja de hub y spoke en AWS. Además de dar idea de cómo poder operar un firewall Fortigate a través de su API. Durante el laboratorio te familizarás con el entorno Terraform y cómo lanzar y customizar los despliegues.
 
 Además, configurarás una nueva aplicación dentro del servicio de protección WAAP FortiWEB Cloud y realizarás pruebas de RedTeam contra la aplicación y verás como protegerla mediante Machine Learning.  
 
 Por último, configurarás nuestro servicio de Global Service Load Balancing (GSLB) mediante DNS, FortiGSLB, para que los usuarios de la aplicación accedan a la misma siempre a su región más cercana. 
 
-El formato del laboratorio consiste en 4 entrenamiento diferenciados y para poder realizarlos encontrarás todos los detalles en la siguiente URL, donde deberás introducir el token facilitado.
+El formato del laboratorio consiste en 4 entrenamientos diferenciados y para poder realizarlos encontrarás todos los detalles en la siguiente URL, donde deberás introducir el token facilitado.
 
 http://xs23.xpertsummit-es.com
 
 ## Indice de laboratorios a completar
 * **T1_day0_IaC_vpc_fgt_server**: despliegue del entorno AWS
-* T2_dayN_fgt_terraform: actualiación de configuraicón del Fortigate mediante Terraform
+* T2_dayN_fgt_terraform: actualización de configuración del Fortigate mediante Terraform
 * T3_dayN_fortiweb: creación de una nueva aplicación y protección avanzada API
 * T4_dayN_fortigslb: añadiremos la aplicación a un servicio de balanceo global DNS
 
 ## Lab T1. Resumen puesta en marcha
 
 En este laboratorio se desplegarán los siguientes recursos:
-- Los detalles parapoder desplegar se proporcionan para cada participante y son diferentes.
+- Los detalles para poder desplegar se proporcionan para cada participante y son diferentes.
 - En AWS se desplegará 1 VPC con 4 subnets: Management, Public, Private y Bastion
 - Los Security Groups (SG) que se asociarán a cada una de las interfaces ya están definidos en el código.
 - 1 x fortigate con los interfaces necesarios en cada subnet, sus SG asociados y la configuración SDWAN necesaria.
 - 1 x servidor docker con una aplicación API de testeo.
-- El código Terraform ya se proporicona en el laboratorio y se realizará mediante la llamada a tres modulos: uno crea la VPC, otro despliega el Fortigate y otro el servidor.   
+- El código Terraform ya se proporciona en el laboratorio y se realizará mediante la llamada a tres módulos: uno crea la VPC, otro despliega el Fortigate y otro el servidor.  
 - No es necesario tener instalado ninguna aplicación en el PC desde el que se realizará el laboratorio, más allá de un navegador web. 
 
 ## Diagrama del laboratorio
@@ -75,14 +75,14 @@ git clone https://github.com/xpertsummit/xpertsummit23.git
 ```
 cd xpertsummit23/T1_day0_IaC_vpc_fgt_server/terraform
 ```
-- Desde el navegador de ficheros de la parte izquierda desdplegando la carpeta corrspondiente al T1
+- Desde el navegador de ficheros de la parte izquierda desplegando la carpeta correspondiente al T1
 
 ![Open text editor](./images/image3-1.png)
 
 
-## 4. **IMPORTANTE** Actualizar las variables locals necesarias para este primer laboratorio
-- Las variables locals se deben actualizar con los datos únicos para cada participante.
-- Los datos se deben de obtinen desde el [portal formación](http://xs23.xpertsummit-es.com) 
+## 4. **IMPORTANTE** Actualizar las variables locales necesarias para este primer laboratorio
+- Las variables locales se deben actualizar con los datos únicos para cada participante.
+- Los datos se obtinen desde el [portal formación](http://xs23.xpertsummit-es.com) 
 - Hacer doble click en el fichero **0_UPDATE.tf** desde el explorador de ficheros.
 - Actualizar las siguientes variables con los datos de cada participante.
 ```sh
@@ -104,6 +104,8 @@ cd xpertsummit23/T1_day0_IaC_vpc_fgt_server/terraform
 
   # UPDATE HUB SDWAN public IP and external token
   hub_fgt_pip      = "34.35.36.37"        //update with data showed in lab web
+  
+  # Lab token
   externalid_token = "lab_token_provided" //update with lab token (this will be the VPN PSK)
 
   # AWS account_id
@@ -111,7 +113,7 @@ cd xpertsummit23/T1_day0_IaC_vpc_fgt_server/terraform
 ```
 **Recuerda guardar el fichero con los cambios realizados**
 
-Nota: los rangos cidr están repartidos para cada participante y no se solpan, para lo que se ha seguido la siguiente nomenclatura:
+Nota: los rangos cidr están repartidos para cada participante y no se solapan, para lo que se ha seguido la siguiente nomenclatura:
 
  - 10.1.x.x asignado a la region west-1
  - 10.2.x.x asignado a la region west-2
@@ -120,7 +122,7 @@ Nota: los rangos cidr están repartidos para cada participante y no se solpan, p
  - 10.2.1.0/24 asignado al user 1 en la region west-2
  - ...
 
-## 5. **IMPORTANTE** - Actualizar las credenciales de acceso programático que usuará Terraform para el despliegue
+## 5. **IMPORTANTE** - Actualizar las credenciales de acceso programático que usará Terraform para el despliegue
 - Hacer doble click en el fichero **terraform.tfvars.example** desde el explorador de ficheros.
 - Actualizar las variables con los datos proporcionados en el [portal formación](http://xs23.xpertsummit-es.com) 
 ```
@@ -134,7 +136,7 @@ secret_key          = "<AWS Secret Key>"
 
 ## 6. **Despligue** 
 
-* Inicialización de providers y modulos:
+* Inicialización de providers y módulos:
   ```sh
   $ terraform init
   ```
@@ -151,11 +153,11 @@ secret_key          = "<AWS Secret Key>"
 
 ![image6-0](./images/image6-0.png)
 
-* Confirmar despligue, type `yes`.
+* Confirmar despliegue, type `yes`.
 
 ![image6-1](./images/image6-1.png)
 
-* Si todo funciona correctamente se generará una salida con el resumen del plan de despligue y las variables de output configuradas:
+* Si todo funciona correctamente se generará una salida con el resumen del plan de despliegue y las variables de output configuradas:
 
 ![image6-2](./images/image6-2.png)
 

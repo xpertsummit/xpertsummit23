@@ -1,19 +1,19 @@
 # Xpert Summit 2023
 # NetDevOps, protección avanzada API y disponibilidad global
 ## Objetivo del laboratorio
-El objetivo de este laboritorio es dar nociones sobre como desplegar una infraestructura relativamente compleja de hub y spoke en AWS. Además de dar idea de cómo poder operar un firewall Fortigate a través de su API. Durante el laboratio te familizaras con el entorno Terraform y como lanzar y customizar los despligues. 
+El objetivo de este laboratorio es dar nociones sobre cómo desplegar una infraestructura relativamente compleja de hub y spoke en AWS. Además de dar idea de cómo poder operar un firewall Fortigate a través de su API. Durante el laboratorio te familizarás con el entorno Terraform y cómo lanzar y customizar los despliegues.
 
 Además, configurarás una nueva aplicación dentro del servicio de protección WAAP FortiWEB Cloud y realizarás pruebas de RedTeam contra la aplicación y verás como protegerla mediante Machine Learning.  
 
 Por último, configurarás nuestro servicio de Global Service Load Balancing (GSLB) mediante DNS, FortiGSLB, para que los usuarios de la aplicación accedan a la misma siempre a su región más cercana. 
 
-El formato del laboratorio consiste en 4 entrenamiento diferenciados y para poder realizarlos encontrarás todos los detalles en la siguiente URL, donde deberás introducir el token facilitado.
+El formato del laboratorio consiste en 4 entrenamientos diferenciados y para poder realizarlos encontrarás todos los detalles en la siguiente URL, donde deberás introducir el token facilitado.
 
 http://xs23.xpertsummit-es.com
 
 ## Indice de laboratorios a completar
 * T1_day0_IaC_vpc_fgt_server: despliegue del entorno AWS
-* T2_dayN_fgt_terraform: actualiación de configuraicón del Fortigate mediante Terraform
+* T2_dayN_fgt_terraform: actualización de configuración del Fortigate mediante Terraform
 * **T3_dayN_fortiweb**: creación de una nueva aplicación y protección avanzada API
 * T4_dayN_fortigslb: añadiremos la aplicación a un servicio de balanceo global DNS
 
