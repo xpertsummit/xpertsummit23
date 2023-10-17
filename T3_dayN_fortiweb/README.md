@@ -150,11 +150,13 @@ chmod +x fwb_training_post.sh
 
 5.2 Comprobación de los patrones aprendidos
 
+**IMPORTANTE: es posible que para los participantes que estén en zonas que no sean Irlanda (eu-west-1), la plataforma tarde hasta 30 minutos en mostrar los resultados del aprendizaje. Si es tu caso, puedes avanzar al [Lab T4](http://github.com/xpertsummit/xpertsummit23/tree/main/T4_dayN_fortigslb) y luego volver a este punto o te recomendamos que realices las comprobaciones en la APP que ya ha sido pre-entrenada para este lab: xs23-eu-central-1-user-0-app**
+
 - Iremos a la sección API colection de la aplicación, en el menú de la izquierda `API PROTECTION > ML Based API Protection`
 
 ![image5-2-1.png](images/image5-2-1.png)
 
-- Cuando haya pasado un tiempo entre 5-10 minutos, desde que se hayan lanzado los scripts de entrenamiento, se presentarán los patrones de tráfico aprendidos por el modelo. 
+- Cuando haya pasado un tiempo desde el lanzamiento de los scripts de entranmiento, que dependerá de la zona en la que se haya desplegado la aplicación, se presentarán los patrones de tráfico aprendidos por el modelo. 
 
 ![image5-2-2.png](images/image5-2-2.png)
 
@@ -177,7 +179,7 @@ Por defecto, el esquema aprendido deja la protección en standby, de forma que l
 ## 6. ReadTeam
 En este apartado vamos a comprobar, como de forma automática, FortiWEB Cloud puede proteger las llamadas a la API, en función a lo aprendido en los patrones de tráfico y al esquema Swagger que ha definido. 
 
-**Nota: si el servicio todavía no ha publicado los esquemas de la API aprendidos con el entrenamiento, puedes pasar directamente al [Lab T4](http://github.com/xpertsummit/xpertsummit23/tree/main/T4_dayN_fortigslb) y luego volver a este punto**
+**IMPORTANTE: es posible que para los participantes que estén en zonas que no sean Irlanda (eu-west-1), la plataforma tarde hasta 30 minutos en mostrar los resultados del aprendizaje. Si es tu caso, puedes avanzar al [Lab T4](http://github.com/xpertsummit/xpertsummit23/tree/main/T4_dayN_fortigslb) y luego volver a este punto o te recomendamos que realices las comprobaciones en la APP que ya ha sido pre-entrenada para este lab: xs23-eu-central-1-user-0-app**
 
 En el punto 5.3, se ha modificado el comportamiento de protección frente a llamadas que no cumplan con el esquema. Comprobar este punto para esperar un comportamiento u otro en los siguientes test.
 
