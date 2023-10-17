@@ -150,7 +150,7 @@ chmod +x fwb_training_post.sh
 
 5.2 Comprobación de los patrones aprendidos
 
-**IMPORTANTE: es posible que para los participantes que estén en zonas que no sean Irlanda (eu-west-1), la plataforma tarde hasta 30 minutos en mostrar los resultados del aprendizaje. Si es tu caso, puedes avanzar al [Lab T4](http://github.com/xpertsummit/xpertsummit23/tree/main/T4_dayN_fortigslb) y luego volver a este punto o te recomendamos que realices las comprobaciones en la APP que ya ha sido pre-entrenada para este lab: xs23-eu-central-1-user-0-app**
+**IMPORTANTE: es posible que para los participantes que estén en zonas que no sean Irlanda (eu-west-1), la plataforma tarde hasta 30 minutos en mostrar los resultados del aprendizaje. Si es tu caso, puedes avanzar al [Lab T4](http://github.com/xpertsummit/xpertsummit23/tree/main/T4_dayN_fortigslb) y luego volver a este punto o te recomendamos que realices las comprobaciones en la APP que ya ha sido pre-entrenada para este lab: xs23-eu-west-1-user-0-app**
 
 - Iremos a la sección API colection de la aplicación, en el menú de la izquierda `API PROTECTION > ML Based API Protection`
 
